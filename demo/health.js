@@ -1,0 +1,107 @@
+'use strict';
+const { t } = require('./helpers');
+
+module.exports = [
+  {
+    name: `Sunrise Family Clinic`,
+    domain: `sunriseclinic.example`,
+    owner: `Dr. Abena Owusu`,
+    bot: `Nora`,
+    about: `Sunrise Family Clinic is a neighbourhood clinic in Accra offering general practice, child health, antenatal care, vaccinations, minor procedures and a small laboratory. Most patients are families who have been with us for years. We accept the National Health Insurance Scheme and major private insurers. For emergencies, do not wait for a reply here: go to the nearest hospital or call 112.`,
+    agents: [
+      [`Efua Mensah`, [`Appointments`, `Services & opening hours`]],
+      [`Kojo Appiah`, [`Billing & insurance`, `Feedback & complaints`]],
+      [`Nurse Adwoa Boateng`, [`Prescriptions & refills`, `Test results & records`]],
+    ],
+    faqs: [
+      [`What are your opening hours?`, `We are open Monday to Friday from 7:30 to 18:00, and Saturday from 8:00 to 14:00. The laboratory opens at 7:00 on weekdays for fasting tests. We are closed on Sundays and public holidays, but an on-call nurse can be reached by phone for urgent advice.`],
+      [`How do I book an appointment?`, `Choose "Appointments" on this help desk with your preferred day and time, or call the front desk. New patients should arrive 15 minutes early with an ID and their insurance card. We confirm bookings by SMS.`],
+      [`Do you accept NHIS?`, `Yes. We accept the National Health Insurance Scheme for consultations, most medicines and many tests. Bring your card and make sure it is active. Some services, including certain scans and private rooms, are not covered, and we tell you the cost before we proceed.`],
+      [`How can I get my test results?`, `Most blood test results are ready within 24 to 48 hours. Results are shared with you securely by the nurse by phone or at the clinic. We do not give results through unverified messages. For some tests, the doctor needs to explain the result in a visit.`],
+      [`How do I request a repeat prescription?`, `Repeat prescriptions for long-term conditions, such as blood pressure medicines, can be requested through the help desk at least three working days before you run out. The doctor may ask you to come in for a review if you have not been seen for six months.`],
+      [`Which vaccinations do you offer?`, `We offer all childhood vaccinations in the national schedule, plus typhoid, hepatitis B, yellow fever and flu vaccines. Travel vaccines need an appointment. Bring your child's health record book to every visit.`],
+      [`What should I do in a medical emergency?`, `If someone has difficulty breathing, chest pain, heavy bleeding, a seizure, signs of stroke or is unconscious, call 112 or go to the nearest hospital immediately. Do not use this help desk for emergencies.`],
+      [`Can I get a medical certificate?`, `Doctors issue medical certificates after a consultation if the illness is confirmed. We cannot issue a certificate retrospectively for days when you were not seen, unless a doctor can verify the illness.`],
+      [`How do I make a complaint?`, `Choose "Feedback & complaints" and tell us what happened. The clinic manager reads every complaint and replies within two working days. You can also ask to speak to a manager in person.`],
+    ],
+    docs: [
+      [`Patient rights and privacy`, `You have the right to be treated with respect, to understand your diagnosis and treatment, and to ask for a second opinion. You may refuse any treatment after we have explained the risks.\n\nYour medical records are confidential. We only share them with other health professionals involved in your care, with your permission, or when the law requires it. Staff are trained in confidentiality, and records are stored securely.\n\nYou may ask for a copy of your records. Send us a signed request with your ID, and we provide them within seven working days. A fee of 50 cedis covers printing. Parents and guardians may request records for children under 18.`],
+      [`Insurance and payments`, `We accept NHIS and several private insurers. Please bring your insurance card to every visit. If your insurer rejects a claim because of an inactive card, you are responsible for the cost of the visit.\n\nPrivate patients pay at the front desk after the consultation. We accept cash, mobile money and cards. Consultation fees start at 120 cedis. A written estimate is given for procedures and scans.\n\nIf you have trouble paying, talk to the billing officer, who can arrange a payment plan for large bills. Invoices can be corrected within 30 days if there is an error.`],
+      [`Cancellation and late arrival policy`, `Please tell us at least four hours before your appointment if you cannot come, so that another patient can be seen. You can cancel by SMS or through the help desk.\n\nIf you arrive more than 20 minutes late, we may need to rebook you, unless the doctor has time. Patients who miss three appointments without notice may be asked to book same-day only.\n\nFor children and patients who are unwell, we always try to see you on the same day. Tell the front desk about your symptoms when booking, so that we can prioritise.`],
+    ],
+    tickets: [
+      t([`Akosua Frimpong`, `akosua.frimpong@mail.example`], `Services & opening hours`, `Saturday opening time`, `What time do you open on Saturday and is the lab available?`, 13, `bot`, `Hello Akosua. On Saturdays we are open from 8:00 to 14:00. The laboratory opens at 7:00 on weekdays for fasting tests, and Saturday tests are taken during the clinic's opening hours. Call the front desk if you need a specific test.`),
+      t([`Samuel Addo`, `samuel.addo@mail.example`], `Appointments`, `Need to see a doctor today for my son`, `My 4-year-old has had a fever for three days and now has a rash. Can we come in today?`, 24, `new`, '', { pri: `high` }),
+      t([`Esi Quartey`, `esi.quartey@mail.example`], `Prescriptions & refills`, `Repeat prescription for blood pressure tablets`, `I have five days of amlodipine left. How do I get a repeat prescription?`, 105, `agent`, `Hello Esi, I have passed your request to the doctor. Because your last review was seven months ago, she would like to see you for a quick blood pressure check. Please come in tomorrow between 8:00 and 10:00 and the repeat will be ready.`, { after: 17 }),
+      t([`Yaw Asante`, `yaw.asante@mail.example`], `Billing & insurance`, `Charged for something NHIS should cover`, `I was charged 80 cedis for malaria tests that I thought were covered by my NHIS card.`, 360, `resolved`, `Hello Yaw, thank you for pointing this out. Your card was marked as expired in our system because of a data error. I have corrected the record and refunded 80 cedis to your mobile money number.`, { after: 48 }),
+    ],
+  },
+  {
+    name: `MediBridge Telehealth`,
+    domain: `medibridge.example`,
+    owner: `Dr. Ananya Krishnan`,
+    bot: `Ivy`,
+    about: `MediBridge Telehealth connects patients across India with licensed doctors by video, phone or chat in eight languages. We handle common illnesses, skin problems, mental wellbeing, diabetes check-ins and follow-ups, and send e-prescriptions and lab orders. MediBridge is not for emergencies: if you have chest pain, trouble breathing or think you are in danger, call 112 or go to the nearest hospital.`,
+    agents: [
+      [`Shreya Bhat`, [`Appointments`, `Services & opening hours`]],
+      [`Imran Sheikh`, [`Billing & insurance`, `Feedback & complaints`]],
+      [`Pharmacist Joseph Thomas`, [`Prescriptions & refills`, `Test results & records`]],
+    ],
+    faqs: [
+      [`How does a consultation work?`, `Choose a doctor or the first available slot and pay the fee. At your time, open the app and start a video, phone or chat consultation. The doctor can send an e-prescription and lab orders afterwards, and you can ask follow-up questions for seven days at no cost.`],
+      [`What conditions can you treat?`, `We can help with colds and flu, fevers, stomach upsets, urinary infections, skin conditions, allergies, headaches, back pain, diabetes and blood pressure follow-ups, and anxiety or low mood. We do not treat emergencies, serious injuries, pregnancy complications or conditions that need a physical examination.`],
+      [`How much does a consultation cost?`, `A general physician consultation costs 299 rupees, specialists cost 499 to 899 rupees and mental wellbeing sessions cost 699 rupees. Follow-ups within seven days are free. Corporate members and some insurance plans may have these fees waived.`],
+      [`Are e-prescriptions valid at any pharmacy?`, `Yes. E-prescriptions follow the national telemedicine guidelines and are accepted by registered pharmacies. Controlled and certain restricted medicines cannot be prescribed by video, and you will be advised to visit a doctor in person.`],
+      [`How do I get a refund for a missed consultation?`, `If the doctor did not join or the call failed because of our fault, you are refunded in full within three to five working days or can rebook for free. If you did not attend, the fee is not refunded.`],
+      [`Is my information private?`, `Your health information is encrypted and is only visible to you and the doctor you consult. We do not sell data. You can download or delete your records from Profile, then Privacy, at any time.`],
+      [`How do I book lab tests?`, `The doctor can add lab tests to your prescription. Choose Home sample collection or a partner lab, and pick a time. Results appear in the app within 24 to 48 hours and the doctor can explain them in a free follow-up.`],
+      [`Do you have doctors who speak my language?`, `You can filter doctors by language: English, Hindi, Tamil, Telugu, Bengali, Marathi, Kannada and Malayalam. Write to us in your language if you need help with the app.`],
+      [`How do I use my health insurance?`, `Add your insurance card under Profile, then Insurance. For cashless consultations, tell us the policy number before booking. Reimbursement claims use the invoice and prescription from the app, available under Records.`],
+    ],
+    docs: [
+      [`Telemedicine terms and limitations`, `MediBridge connects patients to registered doctors under the Telemedicine Practice Guidelines of India. A video or phone consultation cannot replace a physical examination, and doctors may refer you to an in-person visit when they feel it is needed.\n\nIn an emergency, call 112 or go to the nearest hospital. Do not wait for a reply from MediBridge. Emergency symptoms include chest pain, difficulty breathing, signs of stroke, severe bleeding, fits, and thoughts of harming yourself.\n\nYou agree to give accurate information about your health, allergies and current medicines. Doctors may decline to prescribe if information is missing or the situation is unsafe.`],
+      [`Privacy of health records`, `All consultations are confidential. Video calls are not recorded. Chat messages and prescriptions are stored encrypted for as long as you keep your account, and for the period required by law.\n\nOnly the treating doctor and the patient can see your records. Our staff only access them to help you, with your permission, for example when you ask for a copy of a prescription.\n\nYou can request a copy, correction or deletion of your data at any time. Records that we must keep by law will be deleted when the period ends. Contact the help desk and choose "Test results & records".`],
+      [`Cancellation and refund policy`, `You can cancel or reschedule a consultation free of charge up to 30 minutes before the start. Cancellations later than that are charged 50 percent of the fee.\n\nIf the doctor does not join within 10 minutes, or the call cannot be completed because of a technical failure on our side, you receive a full refund or a free rebooking.\n\nRefunds are paid to the original payment method within three to five working days. UPI refunds are usually instant. Fees for completed consultations are not refunded, but you may complain and ask us to review the consultation.`],
+    ],
+    tickets: [
+      t([`Kavita Reddy`, `kavita.reddy@mail.example`], `Appointments`, `Doctor did not join my consultation`, `I waited 20 minutes for Dr. Patel at 6pm and nobody joined. I was charged 499 rupees.`, 55, `new`),
+      t([`Rahul Verma`, `rahul.verma@mail.example`], `Services & opening hours`, `Can I consult in Hindi?`, `Do you have doctors who speak Hindi for diabetes follow-up?`, 8, `bot`, `Hi Rahul. Yes. You can filter doctors by language when you book, and Hindi is one of the eight languages we offer. Choose a physician or diabetes specialist, and select Hindi in the filter. A follow-up within seven days of a consultation is free.`),
+      t([`Shabnam Ali`, `shabnam.ali@mail.example`], `Test results & records`, `Blood test report not showing in app`, `My sample was collected yesterday morning and my report is still not in the app.`, 120, `agent`, `Hello Shabnam, I have checked with the lab: your sample reached them late because of a courier delay and the results are expected this evening. They will appear under Records, and I have asked the doctor to look at them tomorrow.`, { after: 14 }),
+      t([`Vijay Nair`, `vijay.nair@mail.example`], `Billing & insurance`, `Need invoice for insurance claim`, `I need the invoice and prescription from my consultation last week for my insurance claim.`, 310, `resolved`, `Hello Vijay, both documents are now in your Records section, under Invoices. I have also emailed them to you as PDFs. Let us know if your insurer needs anything further.`, { after: 36 }),
+    ],
+  },
+  {
+    name: `Nordlys Dental`,
+    domain: `nordlysdental.example`,
+    owner: `Dr. Ingrid Solberg`,
+    bot: `Kai`,
+    about: `Nordlys Dental is a group of three dental clinics in Oslo offering check-ups, hygiene, fillings, crowns, orthodontics and a same-day emergency line. We have clear prices, 24-hour notice for any change, and a calm, friendly approach for nervous patients. Our dentists speak Norwegian, English, Polish, Arabic and Urdu.`,
+    agents: [
+      [`Emilie Hansen`, [`Appointments`, `Services & opening hours`]],
+      [`Marek Kowalski`, [`Billing & insurance`, `Feedback & complaints`]],
+      [`Hygienist Sana Rehman`, [`Prescriptions & refills`, `Test results & records`]],
+    ],
+    faqs: [
+      [`How often should I have a check-up?`, `Most adults should have a check-up and clean every six to twelve months. Your dentist will recommend how often you need to come, based on your gum health and history of cavities. Children are invited every year from age 3.`],
+      [`How much does a check-up cost?`, `A routine examination costs 750 kroner and a hygienist clean costs 980 kroner. X-rays are extra, starting at 350 kroner. You receive a written quote before any treatment, and children under 18 are covered by the public scheme.`],
+      [`I have a toothache or a broken tooth.`, `Call the emergency line the same day on the clinic's number and choose option 1. We keep slots free every day for pain, swelling, broken teeth and lost fillings. If you have swelling in the face or neck that affects your breathing or swallowing, go to the emergency department immediately.`],
+      [`What is your cancellation policy?`, `Please give 24 hours' notice if you cannot attend. Appointments cancelled with less than 24 hours' notice or not attended are charged 500 kroner. We understand that emergencies happen, and we waive the charge for illness if you tell us.`],
+      [`Do you treat nervous patients?`, `Yes. Tell us when you book and we will give you more time, explain each step and agree on a stop signal. We also offer sedation with nitrous oxide at our Majorstuen clinic.`],
+      [`Do you offer teeth whitening?`, `Yes. In-clinic whitening costs 3,900 kroner, and a custom-made home kit costs 2,800 kroner. We check that your teeth and gums are healthy first. Whitening is not suitable during pregnancy or for under-18s.`],
+      [`How does orthodontic treatment work?`, `We offer fixed braces and clear aligners. The first consultation is free and includes a digital scan. Treatments take 12 to 24 months and prices start at 19,000 kroner, payable in monthly instalments with no interest.`],
+      [`Which clinics do you have and where?`, `Nordlys Dental has clinics at Majorstuen, Grünerløkka and Bjørvika. All are open Monday to Friday from 8:00 to 19:00, and Majorstuen is also open on Saturday from 9:00 to 14:00.`],
+      [`Can I get my X-rays sent to another dentist?`, `Yes. Ask us through the help desk with the name of the new clinic and we send the digital images securely within two working days, free of charge. We keep records for ten years.`],
+    ],
+    docs: [
+      [`Patient information and consent`, `Before any treatment, your dentist explains your diagnosis, the options, the risks and the cost, and asks for your consent. You may ask questions at any time and may stop treatment whenever you wish.\n\nPatient records are protected by Norwegian health law. Only staff involved in your care can see them. We do not share your information without consent, except where required by law, for example to your regular health professionals in an emergency.\n\nYou have the right to see your records and to get a copy. Please write to us and we reply within seven days. Records are kept for ten years after your last visit.`],
+      [`Prices and payment`, `Our price list is published at every clinic and on the website. Prices of treatments that need a lab, such as crowns and bridges, are confirmed after your dentist has examined you.\n\nPayment is due on the day of treatment by card, Vipps or invoice. Invoice payments are due in 14 days. For treatment above 5,000 kroner we offer interest-free instalments over up to 12 months.\n\nIf you have private dental insurance, we can send the claim for you. You pay the full amount, and the insurer repays you. Complaints about a bill can be made through the help desk, and we answer within two working days.`],
+      [`Aftercare for common treatments`, `After a filling, avoid chewing on the treated side until the numbness wears off, usually two to three hours. Sensitivity to cold for a few days is normal.\n\nAfter an extraction, bite on the gauze for 30 minutes, do not rinse or spit for 24 hours, avoid hot drinks, alcohol and smoking, and sleep with your head raised. Contact us if bleeding continues for more than 24 hours, or if pain gets worse after day three.\n\nAfter whitening, avoid coffee, tea, red wine and coloured foods for two days. Sensitivity usually settles within 48 hours. Call us if pain lasts longer.`],
+    ],
+    tickets: [
+      t([`Magnus Berg`, `magnus.berg@mail.example`], `Appointments`, `Broken tooth, need a slot today`, `I bit into something hard and half of a molar broke off. It hurts and the edge is sharp. Can I come in today?`, 16, `new`, '', { pri: `high` }),
+      t([`Sofie Nilsen`, `sofie.nilsen@mail.example`], `Billing & insurance`, `What does whitening cost?`, `How much is whitening and is it safe?`, 5, `bot`, `Hi Sofie. In-clinic whitening costs 3,900 kroner and a custom home kit costs 2,800 kroner. Your dentist checks your teeth and gums first to make sure whitening is safe for you. It is not suitable during pregnancy or for under-18s.`),
+      t([`Tariq Mahmood`, `tariq.mahmood@mail.example`], `Test results & records`, `Send my X-rays to another dentist`, `I am moving to Bergen. Can you send my X-rays to my new dentist?`, 100, `agent`, `Hello Tariq. Yes, we can. Please send me the name and email of your new clinic and I will send the images securely within two working days, at no charge.`, { after: 15 }),
+      t([`Linnea Olsen`, `linnea.olsen@mail.example`], `Feedback & complaints`, `Charged a no-show fee though I called`, `I called to say I was ill on Monday morning but was still charged 500 kroner.`, 450, `resolved`, `Hello Linnea, I am sorry about the confusion. I found your call in our log, so the fee should not have been charged. I have cancelled it and removed it from your invoice.`, { after: 55 }),
+    ],
+  },
+];

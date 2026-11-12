@@ -1,0 +1,107 @@
+'use strict';
+const { t } = require('./helpers');
+
+module.exports = [
+  {
+    name: `Pulse Live Events`,
+    domain: `pulselive.example`,
+    owner: `Carmela Reyes`,
+    bot: `Zara`,
+    about: `Pulse Live Events is a ticketing platform from Manila for concerts, festivals, comedy nights and sports across Southeast Asia. We sell tickets only through verified organisers, protect fans from fakes with QR codes that change every 30 seconds, and refund cancelled events automatically. Our help desk is busiest on sale days, and we staff up so that nobody waits more than two hours.`,
+    agents: [
+      [`Joaquin Villanueva`, [`Tickets & events`]],
+      [`Nurul Aziz`, [`Subscriptions & payments`, `Account & profile`]],
+      [`Tom Hargreaves`, [`Playback & app issues`, `Report content or user`, `Creator & partnership`, `Other`]],
+    ],
+    faqs: [
+      [`How do I get my tickets after buying?`, `Tickets are in the Pulse app under My tickets, and are also emailed as a link. Each ticket has a QR code that refreshes every 30 seconds, so screenshots do not work. Add the ticket to your phone wallet if you are worried about signal at the venue.`],
+      [`Can I transfer my ticket to a friend?`, `Yes. Open the ticket, choose Transfer and enter your friend's email or phone. They receive a new ticket and yours is cancelled automatically. Transfers close two hours before the event starts.`],
+      [`What happens if an event is cancelled?`, `If an event is cancelled, all tickets are refunded automatically to the original payment method within seven to ten working days, including booking fees. If an event is rescheduled, your ticket stays valid and you can request a refund within 14 days of the new date being announced.`],
+      [`Can I get a refund if I cannot go?`, `Tickets are not refundable by default. Many events offer Pulse Protect, which you can add at checkout for a refund of the ticket price if you cannot attend for a covered reason. Otherwise, you can resell your ticket safely in the Pulse marketplace.`],
+      [`How does the resale marketplace work?`, `Open your ticket and choose Resell. Set a price up to the original face value. When a buyer purchases, you receive the money in your Pulse wallet, minus a 10 percent fee, within three working days.`],
+      [`My payment went through but I have no ticket.`, `Check your email, including spam, and the My tickets page. Payments sometimes take a few minutes to confirm. If you are still without a ticket after 30 minutes, send us the payment reference and we will find your order.`],
+      [`How do I get a wheelchair-accessible seat?`, `Choose the accessible category when buying. If it does not appear, the venue may need to book it for you. Contact us with the event name and we will arrange it with the venue, and your companion's ticket is free.`],
+      [`What are the age limits for events?`, `Every event page shows the age limit. Under-16s must be accompanied by an adult at most events. Venues may check identification at the entrance.`],
+      [`How do I become an organiser?`, `Apply under Organisers on our website. We verify your identity and your events before you can sell tickets. Fees are 6 percent plus 15 pesos per ticket, and payouts are made two working days after the event.`],
+    ],
+    docs: [
+      [`Ticket terms and conditions`, `A ticket gives its holder entry to the event on the date and at the venue shown. Pulse sells tickets as an agent for the organiser, who is responsible for the event.\n\nTickets are not refundable unless the event is cancelled, the organiser changes the date, venue or headline act in a material way, or you bought Pulse Protect. Organisers may refuse entry to people who are drunk, aggressive or carrying prohibited items.\n\nTickets bought from unofficial sources may be invalid. Pulse only guarantees tickets bought on Pulse or in the official resale marketplace. If a ticket bought from us is refused at the door, tell the venue staff and contact us immediately, and we will make it right.`],
+      [`Refunds and cancellations`, `If an event is cancelled, Pulse refunds the face value and booking fees automatically within seven to ten working days. You do not need to apply.\n\nIf the event is postponed, tickets stay valid for the new date. You may request a refund within 14 days of the new date being announced, and we process it within ten working days.\n\nFor events that change venue or time significantly, the same 14-day refund window applies. Pulse Protect refunds are paid within ten working days of approval. Refunds are always paid to the original payment method, or to your Pulse wallet if you ask.`],
+      [`Community guidelines for the Pulse social feed`, `The Pulse feed lets fans share photos, set-lists and meet-ups. Be kind. Hate speech, threats, sharing private information and selling tickets outside the platform are not allowed.\n\nReport posts and accounts that break the rules using the Report button, or through the help desk under "Report content or user". We review reports within 24 hours, and urgent safety reports within two hours.\n\nWe remove content that breaks these rules, and may suspend or ban accounts for serious or repeated offences. You can appeal a decision by writing to the help desk within 14 days.`],
+    ],
+    tickets: [
+      t([`Marco Dela Cruz`, `marco.delacruz@mail.example`], `Tickets & events`, `Transfer ticket to my brother`, `How do I transfer one of my two tickets to my brother? The concert is on Saturday.`, 11, `bot`, `Hi Marco. Open the ticket in My tickets, choose Transfer and enter your brother's email or phone. He receives a new ticket and yours is cancelled automatically. Transfers are open until two hours before the event.`),
+      t([`Jasmine Tan`, `jasmine.tan@mail.example`], `Tickets & events`, `Paid but no ticket, show is tonight`, `I paid 4,500 pesos at 3pm and got no ticket or email. The show starts at 8pm. Help urgently! Payment ref PL-883920.`, 28, `new`, '', { pri: `urgent` }),
+      t([`Rizal Hakim`, `rizal.hakim@mail.example`], `Subscriptions & payments`, `Pulse Protect refund request`, `I bought Pulse Protect but I am sick and cannot attend. How do I claim the refund?`, 105, `agent`, `Hi Rizal, I am sorry you are unwell. Please upload your medical certificate in the claim form I have just emailed to you. Once we have it, the refund is approved within two working days and paid to your card within ten.`, { after: 14 }),
+      t([`Elena Park`, `elena.park@mail.example`], `Report content or user`, `Someone is selling fake tickets in the feed`, `A user is posting fake tickets for the Saturday concert and asking for payment by bank transfer.`, 190, `resolved`, `Thank you for reporting, Elena. We have removed the posts, banned the account and warned the fans who contacted them. Please never pay for tickets outside Pulse.`, { after: 26 }),
+    ],
+  },
+  {
+    name: `StreamNest`,
+    domain: `streamnest.example`,
+    owner: `Arjun Mehta`,
+    bot: `Kai`,
+    about: `StreamNest is a Mumbai-based streaming service with more than 20,000 hours of films, series, live cricket and kids' shows in twelve Indian languages. Plans start at 99 rupees a month, with downloads for offline viewing and profiles for the whole family. We stream in HD on most devices, and our support team answers within two hours every day.`,
+    agents: [
+      [`Neha Kulkarni`, [`Subscriptions & payments`, `Account & profile`]],
+      [`Ravi Shankar`, [`Playback & app issues`]],
+      [`Fiona D'Souza`, [`Creator & partnership`, `Report content or user`, `Tickets & events`, `Other`]],
+    ],
+    faqs: [
+      [`Which plans do you offer?`, `Mobile costs 99 rupees a month with one phone screen in SD. Standard costs 199 rupees with two screens in HD. Premium costs 499 rupees with four screens in 4K and downloads on up to six devices. Annual plans save about two months.`],
+      [`How do I cancel my subscription?`, `Open Account, then Subscription, and choose Cancel. You keep watching until the end of the paid period. If you paid through an app store, cancel in your store's subscription settings.`],
+      [`Why is the video buffering or blurry?`, `Streaming HD needs at least 5 Mbps. Close other apps that use the internet, move closer to your router or switch from mobile data to Wi-Fi. You can also lower the quality in Settings, then Playback. Downloaded shows always play smoothly.`],
+      [`How many people can watch at the same time?`, `Mobile allows one screen at a time, Standard allows two and Premium allows four. If you reach the limit, sign out of a device from Account, then Devices.`],
+      [`How do I download shows?`, `Tap the download icon next to an episode on a Standard or Premium plan. Downloads are available for 30 days and must be started within 48 hours of beginning to watch. Some titles cannot be downloaded because of licensing.`],
+      [`Can I watch live cricket?`, `Yes. Live cricket is available on all plans, in SD on Mobile and HD on Standard and Premium. Matches are shown with a 5 to 10 second delay compared with the stadium. Commentary is available in seven languages.`],
+      [`How do I set up parental controls?`, `Create a Kids profile from Profiles. Kids profiles only show content rated U and 7+. You can also add a PIN to protect adult profiles in Account, then Parental controls.`],
+      [`I was charged twice.`, `Duplicate charges are usually a pending authorisation that disappears in three to five working days. If both charges are final, write to us with the transaction references and we will refund the extra one.`],
+      [`Is StreamNest available outside India?`, `StreamNest works in India, the UAE, the UK, Singapore and the United States. Live cricket is only available in India because of rights restrictions.`],
+    ],
+    docs: [
+      [`Terms of service`, `StreamNest provides a personal, non-transferable licence to watch content for private viewing. You may not share your password outside your household, record or redistribute content, or bypass regional restrictions.\n\nWe may change the catalogue at any time, as licences expire and new titles arrive. Subscription fees are not refunded for the current period if you cancel, except where required by law or where we cannot provide the service for more than 48 hours.\n\nAccounts that break these rules may be suspended. We will email you before suspending an account unless the matter is urgent or illegal.`],
+      [`Billing and refunds`, `Subscriptions renew automatically at the end of each period using the payment method on file. We send a reminder three days before annual renewals.\n\nIf a payment fails, we try again for five days and email you. If it still fails, access ends until you update your payment details.\n\nRefunds are available for accidental annual renewals if you ask within seven days and have not watched more than two hours. Monthly charges are not refunded. Duplicate charges are always refunded. Refunds go to the original payment method in five to seven working days.`],
+      [`Content standards and reporting`, `StreamNest labels every title with an age rating and content advisories. You can report any title that is mislabelled, pirated or illegal, through the Report option on the title page or the help desk.\n\nCreators who partner with StreamNest must own the rights to their content and may not upload hateful, sexual or violent material that breaks the law. We review reports within 48 hours, and remove illegal content immediately.\n\nIf you are a creator who wants to publish with StreamNest, write to the help desk and choose "Creator & partnership". Our partnerships team replies within five working days.`],
+    ],
+    tickets: [
+      t([`Sneha Rao`, `sneha.rao@mail.example`], `Playback & app issues`, `Live cricket keeps freezing`, `Every few minutes the live match freezes and I have to restart the app. Samsung smart TV, Wi-Fi is fine.`, 17, `new`),
+      t([`Imran Qureshi`, `imran.qureshi@mail.example`], `Subscriptions & payments`, `How to cancel Premium?`, `I want to cancel my Premium plan but I cannot find the button.`, 6, `bot`, `Hi Imran. Open Account, then Subscription, and choose Cancel. You can keep watching until the end of the period you have paid for. If you subscribed through an app store, cancel in your store's subscription settings instead.`),
+      t([`Lakshmi Iyer`, `lakshmi.iyer@mail.example`], `Account & profile`, `Kids profile is showing adult shows`, `My daughter's kids profile shows a crime series. Please fix this, it is not suitable for her.`, 90, `agent`, `Hello Lakshmi, I am sorry about that. The series had a wrong rating and we have corrected it, so it no longer appears on Kids profiles. I have also asked our content team to check similar titles.`, { after: 13 }),
+      t([`Deepak Joshi`, `deepak.joshi@mail.example`], `Creator & partnership`, `Film festival entry for StreamNest`, `I have a 90-minute Marathi film that won at a festival. How can we partner with StreamNest?`, 480, `resolved`, `Thanks Deepak, congratulations on the award. I have forwarded your details to our acquisitions team, and they will contact you within five working days with the submission form.`, { after: 70 }),
+    ],
+  },
+  {
+    name: `Chatterbox Community`,
+    domain: `chatterbox-app.example`,
+    owner: `Femke de Vries`,
+    bot: `Nora`,
+    about: `Chatterbox is an Amsterdam-based social app built around small interest groups: books, gardening, running, retro games and a hundred more. It has no advertising and no algorithmic feed. Creators can charge for private groups, and moderation is a team of paid staff and trained volunteers. Safety reports are answered first, always.`,
+    agents: [
+      [`Lars Bakker`, [`Report content or user`, `Account & profile`]],
+      [`Aisha Mohammed`, [`Subscriptions & payments`, `Creator & partnership`]],
+      [`Pablo Ortiz`, [`Playback & app issues`, `Tickets & events`, `Other`]],
+    ],
+    faqs: [
+      [`How do I report abuse or a harmful post?`, `Tap the three dots on any post, comment or profile and choose Report. Reports go to our safety team, who review serious reports within two hours and all others within 24 hours. You can also block the person right away from the same menu.`],
+      [`How do I change my username?`, `Open your profile, choose Edit and change the username. You can change it once every 30 days. Your old username is held for 14 days and then becomes available to others.`],
+      [`How do I delete my account?`, `Go to Settings, then Account, and choose Delete account. Your profile and posts are removed within 30 days. Messages you sent remain visible to the people who received them, but without your name.`],
+      [`How do paid groups work?`, `Creators can make a group paid, with monthly prices from 2 to 50 euros. Members are charged monthly and can cancel at any time. Chatterbox keeps 10 percent, and creators are paid out on the 5th of each month.`],
+      [`I did not get my verification email.`, `Check spam and promotions folders. Make sure the email address is spelled correctly in Settings. You can ask for a new email once every five minutes. If you use a work address, ask your IT team to allow mail from chatterbox-app.example.`],
+      [`How do I join a private group?`, `Open the group and tap Request to join. The group admins review requests, usually within a day. Some groups ask a question that you need to answer.`],
+      [`How do I create an event?`, `In your group, choose Events, then New event. Add a title, date and place, and decide whether members must RSVP. Events can be free or paid, and paid event tickets use the same payment system as paid groups.`],
+      [`Why was my post removed?`, `Posts are removed if they break our community guidelines, for example harassment, spam or sharing someone's private details. You will see the reason in your notifications and can appeal within 14 days.`],
+      [`How do I stop notifications at night?`, `Open Settings, then Notifications, and set Quiet hours. Safety alerts and direct messages from people you follow can be kept on or off separately.`],
+    ],
+    docs: [
+      [`Community guidelines`, `Chatterbox is for people who want friendly company around their interests. Be respectful. Harassment, threats, hate speech, doxxing and sexual content involving minors are never allowed.\n\nDo not impersonate others. Parody accounts must say so in the name or bio. Do not post spam, scams or links that mislead people. Do not sell regulated or illegal goods.\n\nGroup admins may add their own rules, as long as these do not conflict with ours. Moderators act on reports and can remove posts, mute or remove members. Serious violations lead to an immediate ban. We always tell people why we took action, and offer a way to appeal.`],
+      [`Safety and moderation process`, `Reports reach a safety team of trained staff. Reports about threats, self-harm or children are handled as emergencies and are reviewed within two hours, every day.\n\nFor other reports we remove content that breaks the rules, warn or restrict the person, and tell both sides what happened. We do not share the reporter's identity.\n\nIf you receive a legal notice or have been contacted by the police, write to the help desk and choose "Report content or user". Law enforcement requests are handled by our legal team under Dutch and EU law.`],
+      [`Creator payments and payouts`, `Creators can charge for private groups or events once they have verified their identity and bank details. Chatterbox keeps 10 percent of each payment, and payment providers charge about 3 percent.\n\nPayouts are made on the 5th of each month for the previous month, to the bank account in your settings, if the balance is at least 25 euros. Smaller balances roll over.\n\nIf a member disputes a payment, the amount may be held until the dispute is resolved. Creators who break the guidelines may have their paid groups closed, and members are refunded for the current month.`],
+    ],
+    tickets: [
+      t([`Noor Hussain`, `noor.hussain@mail.example`], `Report content or user`, `Someone keeps sending me threatening messages`, `A user I blocked made a new account and keeps messaging me threats. I am scared. Please help.`, 20, `new`, '', { pri: `urgent` }),
+      t([`Bas Jansen`, `bas.jansen@mail.example`], `Account & profile`, `How to change my username`, `I want to change my username. Is it possible?`, 4, `bot`, `Hi Bas. Yes. Open your profile, choose Edit and change your username. You can change it once every 30 days, and your old username is held for 14 days before other people can take it.`),
+      t([`Giulia Ferri`, `giulia.ferri@mail.example`], `Subscriptions & payments`, `Charged for a group I left`, `I left the Vintage Cameras group on the 2nd but was charged 8 euros on the 5th.`, 130, `agent`, `Hi Giulia, I found it: you left after the billing date but before the group page updated. I have refunded the 8 euros to your card and the group will not charge you again.`, { after: 17 }),
+      t([`Kofi Mensah`, `kofi.mensah@mail.example`], `Creator & partnership`, `Payout has not arrived`, `My payout for last month has not arrived. It is the 9th already.`, 360, `resolved`, `Hi Kofi, your payout of 142 euros was held because your bank details needed re-verification. I have verified them and the payout was sent. It should arrive in two working days.`, { after: 45 }),
+    ],
+  },
+];

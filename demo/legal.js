@@ -1,0 +1,107 @@
+'use strict';
+const { t } = require('./helpers');
+
+module.exports = [
+  {
+    name: `Okonkwo & Partners`,
+    domain: `okonkwopartners.example`,
+    owner: `Barr. Chinedu Okonkwo`,
+    bot: `Sam`,
+    about: `Okonkwo & Partners is a Lagos law firm with 14 lawyers, advising businesses and families on company formation, contracts, property, employment, intellectual property and family law. We give clear fixed fees where we can, explain every step in plain language and keep our clients updated at least every two weeks. This help desk handles enquiries and administration, and does not provide legal advice: advice comes only from a lawyer after an engagement.`,
+    agents: [
+      [`Ngozi Eze`, [`New enquiry`, `Appointments`]],
+      [`Tolu Balogun`, [`Existing matter`, `Documents & signing`]],
+      [`Femi Adewale`, [`Billing & invoices`, `Complaints`]],
+    ],
+    faqs: [
+      [`How do I book a first consultation?`, `Choose "Appointments" and give your preferred time, or call the front desk. A 30-minute first consultation costs 25,000 naira, which is deducted from your bill if you instruct us. We hold consultations in person, by phone or by video.`],
+      [`What should I bring to my first meeting?`, `Bring a valid ID, any contracts, letters, court documents or messages related to the matter, and a short summary with dates. The more organised your papers, the more productive the meeting. Everything you tell us is confidential.`],
+      [`How much will it cost?`, `Fees depend on the work. Company registration, tenancy agreements and simple contracts are fixed fee, listed on our website. Disputes and litigation are billed by time with estimates. We give you a written fee estimate before work starts, and tell you if it is likely to change.`],
+      [`How do I get an update on my matter?`, `Use "Existing matter" with your matter reference and we ask the responsible lawyer to reply. Lawyers aim to respond within one working day, and we send fortnightly progress emails automatically.`],
+      [`How do I send or sign documents?`, `Send documents through the secure upload link we email to you. We do not accept sensitive documents by WhatsApp. For signing, we use electronic signatures where the law permits, and in-person signing at the office for deeds and property documents.`],
+      [`Can you help with company registration?`, `Yes. We register businesses with the Corporate Affairs Commission, including name reservation, articles of association and tax registration. The usual time is five to ten working days, and the fixed fee starts at 150,000 naira plus government fees.`],
+      [`How do I make a complaint?`, `Choose "Complaints" and tell us what happened. A partner who was not involved in your matter reviews it and replies within five working days. You may also complain to the Nigerian Bar Association's disciplinary committee.`],
+      [`Do you act in court?`, `Yes. Our litigation team appears in the High Courts and the Court of Appeal in Lagos, Abuja and Port Harcourt. For other courts, we work with trusted local counsel.`],
+      [`Is my information confidential?`, `Yes. Communications with your lawyer are protected by legal professional privilege. We do not share your information without your permission, unless the law requires it. Please avoid forwarding our emails to other people, as this may weaken the privilege.`],
+    ],
+    docs: [
+      [`Client care letter and terms of engagement`, `Once you instruct us, you receive a client care letter that sets out the work, who will do it, the fees and how we will keep you informed. Please read it carefully and sign to confirm.\n\nWe act on your instructions, and we will tell you if we think they are unwise. We will not take on work where we have a conflict of interest. If a conflict emerges, we will tell you and may need to stop acting for you.\n\nWe keep your file for six years after the matter ends, and we will destroy it afterwards unless you ask for the original documents to be returned. Original documents such as title deeds are returned to you or kept in our vault, as you prefer.`],
+      [`Fees, billing and payment`, `We bill monthly for work done, or as agreed milestones for fixed-fee matters. Invoices show the time spent, the lawyer who did the work and any disbursements, such as court fees and registry charges.\n\nPayment is due within 14 days. We may ask for a deposit on account before starting. Funds held on your behalf are kept in a client account, separate from our own money.\n\nIf you disagree with an invoice, tell us within 30 days and we will review it with you. We do not charge for time spent on resolving a fee query. Overdue invoices may lead to us pausing work after written notice.`],
+      [`Confidentiality and data protection`, `We keep your information safe in line with the Nigeria Data Protection Act. Files are stored on encrypted systems, and access is limited to those working on your matter.\n\nWe use your information only to provide legal services, to meet our legal duties and, with your consent, to keep you informed about our services. We never sell your data.\n\nYou may ask us for a copy of the personal data we hold. Write to the help desk and choose "Existing matter". We respond within 30 days.`],
+    ],
+    tickets: [
+      t([`Adaeze Nwosu`, `adaeze.nwosu@mail.example`], `New enquiry`, `I want to register my company`, `I am starting a bakery business and need to register a limited company. How long does it take and what does it cost?`, 15, `bot`, `Hello Adaeze, congratulations on the new venture. We register companies with the Corporate Affairs Commission, including name reservation, articles and tax registration. It usually takes five to ten working days and our fixed fee starts at 150,000 naira plus government fees. A member of our team will contact you to arrange a free call with a lawyer.`),
+      t([`Segun Alabi`, `segun.alabi@mail.example`], `Existing matter`, `Update on my land purchase`, `It has been three weeks and I have not heard anything about my land purchase in Ibadan. Matter ref OP-2291.`, 50, `new`, '', { custom: { matter_ref: `OP-2291` } }),
+      t([`Chiamaka Obi`, `chiamaka.obi@mail.example`], `Documents & signing`, `Signing the tenancy agreement`, `My landlord wants to sign next week. Can I sign electronically or must I come to the office?`, 120, `agent`, `Hello Chiamaka, tenancy agreements can be signed electronically. I will send you the signing link today, and the landlord will receive one too. Please check the rent and the break clause before you sign, and let us know if you have any questions.`, { after: 14, custom: { matter_ref: `OP-2305` } }),
+      t([`Ibrahim Danjuma`, `ibrahim.danjuma@mail.example`], `Billing & invoices`, `Invoice includes a charge I did not agree`, `My invoice has a 40,000 naira charge for a courier that was not discussed.`, 290, `resolved`, `Hello Ibrahim, thank you for raising this. The courier charge was an administrative error and has been removed. A corrected invoice is attached.`, { after: 31, custom: { invoice_number: `INV-4417` } }),
+    ],
+  },
+  {
+    name: `ClearPath Immigration Advisors`,
+    domain: `clearpathimmigration.example`,
+    owner: `Priya Sandhu`,
+    bot: `Ivy`,
+    about: `ClearPath Immigration Advisors is a Vancouver practice of regulated Canadian immigration consultants and lawyers, helping people move, study, work and settle in Canada. We handle Express Entry, study and work permits, family sponsorship and citizenship, and we only take cases we believe have a real chance. We never promise outcomes. Immigration decisions are made by the government, and we explain the realistic options.`,
+    agents: [
+      [`Rohan Mehta`, [`New enquiry`, `Appointments`]],
+      [`Amelia Fortin`, [`Existing matter`, `Documents & signing`]],
+      [`Chen Wei`, [`Billing & invoices`, `Complaints`]],
+    ],
+    faqs: [
+      [`How do I know which programme I qualify for?`, `Book an assessment. We review your age, education, work experience, language results and family connections against Canadian programmes such as Express Entry, provincial nominations and work permits. The assessment costs 150 Canadian dollars, and is credited if you retain us.`],
+      [`How long does an application take?`, `Processing times change often, and are set by the government. As a guide, Express Entry applications are processed in about six months, study permits in four to twelve weeks and family sponsorship in 12 months or more. We share the current times in your first consultation.`],
+      [`What documents will I need?`, `Typical documents are a passport, language test results, education credentials, proof of work experience, police certificates and medical exams. Your consultant gives you a personal checklist, and we review every document before submission.`],
+      [`Can you guarantee my visa?`, `No. Nobody can. Decisions are made by Immigration, Refugees and Citizenship Canada. We can improve the quality of your application and avoid common mistakes. Be wary of anyone who promises a guaranteed result.`],
+      [`How much do you charge?`, `Fees are fixed and agreed in writing before work starts. A study permit costs from 1,200 dollars, a work permit from 1,800 dollars, and a full Express Entry application from 3,500 dollars. Government fees are paid separately and are shown to you in advance.`],
+      [`My application was refused. What now?`, `Do not panic and do not reapply immediately. Send us the refusal letter within seven days. We review the reasons, tell you whether a reconsideration, appeal or fresh application makes sense, and give you a written opinion. Deadlines can be as short as 15 days.`],
+      [`How do I upload documents securely?`, `Use the secure portal link in your welcome email. Do not send passports or financial documents by regular email or chat. Scans should be colour, clear and under 10 MB each.`],
+      [`Are your consultants licensed?`, `Yes. Our consultants are regulated by the College of Immigration and Citizenship Consultants (CICC), and our lawyers by the Law Society of British Columbia. You can verify a licence on the regulators' public registers.`],
+      [`Can you help me from outside Canada?`, `Yes. Most of our clients are outside Canada when they start. We hold consultations by video in English, Punjabi, Hindi, Mandarin, Tagalog and Spanish.`],
+    ],
+    docs: [
+      [`Retainer agreement and our service promise`, `Every client signs a retainer agreement that sets out the services we provide, our fees, what we need from you and how we communicate.\n\nWe promise to give honest advice, including when your case is weak, to tell you about the risks, and never to submit false or misleading documents. If you ask us to, we will refuse the work.\n\nFees are payable in instalments tied to milestones. The first payment starts the work. If you cancel before we have started, we refund the fee minus an administrative charge of 150 dollars. After work has begun, we refund the unused portion.`],
+      [`Refusals, appeals and deadlines`, `If your application is refused, send us the decision as soon as possible. Some deadlines are as short as 15 days from the date on the letter.\n\nWe will review the refusal and may recommend an application for reconsideration, a judicial review at the Federal Court, a new application or leaving the case. Judicial reviews are handled by our lawyers and have separate fees.\n\nWe cannot take on a case in which you have given false information to the government before. Misrepresentation can result in a five-year ban, so tell us everything early, and we can work out the best path.`],
+      [`Privacy and client confidentiality`, `Your identity documents, finances and family details are very sensitive. We store them on encrypted systems in Canada, limit access to staff working on your file and delete them seven years after the file closes.\n\nWe may only share your information with Canadian immigration authorities as part of your application, with service providers you ask us to use, or when the law requires it.\n\nYou may ask for a copy of your file or for corrections at any time. Please contact the help desk and choose "Existing matter".`],
+    ],
+    tickets: [
+      t([`Anika Das`, `anika.das@mail.example`], `New enquiry`, `Am I eligible for Express Entry?`, `I am 31, have a master's degree, 5 years of work experience as a data analyst and an IELTS score of 7.5. Am I eligible for Express Entry?`, 10, `bot`, `Hello Anika, thank you for the detailed information. Your profile looks like it could be competitive for Express Entry, but eligibility and scores depend on several factors. The best next step is a 150 dollar assessment with one of our consultants, which is credited if you retain us. Would you like us to arrange that?`),
+      t([`Mohammed Rahman`, `mohammed.rahman@mail.example`], `Existing matter`, `My study permit was refused, deadline is close`, `I received a refusal letter yesterday. It says I have 15 days to respond. Please help.`, 22, `new`, '', { pri: `urgent`, custom: { matter_ref: `CP-6620` } }),
+      t([`Lucia Fernández`, `lucia.fernandez@mail.example`], `Documents & signing`, `How do I upload my police certificates?`, `I got my police certificates but the portal says the file is too big.`, 100, `agent`, `Hello Lucia, please compress each certificate to under 10 MB and upload each one separately. If the portal still fails, send them to me and I will upload them for you through our secure link.`, { after: 15, custom: { matter_ref: `CP-6541` } }),
+      t([`Kwesi Boakye`, `kwesi.boakye@mail.example`], `Billing & invoices`, `Receipt for tax purposes`, `Can I have a receipt that shows the government fees separately for my taxes?`, 360, `resolved`, `Hello Kwesi, I have issued a new receipt that separates our professional fees from government fees. It is attached to this message and in your portal under Billing.`, { after: 30 }),
+    ],
+  },
+  {
+    name: `Harlow & Finch Accountants`,
+    domain: `harlowfinch.example`,
+    owner: `Helen Harlow`,
+    bot: `Maya`,
+    about: `Harlow & Finch is a Manchester firm of chartered accountants helping sole traders, small businesses and landlords with bookkeeping, VAT, payroll, annual accounts and self-assessment tax returns. We charge fixed monthly fees, explain tax in plain English and tell you early if there is a deadline you may miss. This help desk cannot give personalised tax advice: that comes from your accountant once you are a client.`,
+    agents: [
+      [`Priyanka Joshi`, [`New enquiry`, `Appointments`]],
+      [`George Whitaker`, [`Existing matter`, `Documents & signing`]],
+      [`Aisha Khan`, [`Billing & invoices`, `Complaints`]],
+    ],
+    faqs: [
+      [`What are the key tax deadlines?`, `Self-assessment tax returns are due on 31 January for online filing, and any tax due is paid by the same date. Paper returns are due by 31 October. VAT returns are usually due one month and seven days after the end of the VAT period. Late filing penalties start at 100 pounds.`],
+      [`How much do your services cost?`, `Bookkeeping starts at 90 pounds a month, payroll from 6 pounds per employee, annual accounts for sole traders from 350 pounds and self-assessment tax returns from 195 pounds. You get a fixed quote before we start.`],
+      [`How do I send my records?`, `Use the client portal to upload receipts, invoices and bank statements. Photograph receipts with the mobile app. You can also connect your bank feed to our bookkeeping software. Do not send records by post without telling us first.`],
+      [`Can you help me register for VAT?`, `Yes. You must register when your taxable turnover goes over the VAT threshold, currently 90,000 pounds over 12 months, or if you expect to exceed it in the next 30 days. We handle the registration and set up your returns.`],
+      [`I have received a letter from HMRC.`, `Do not ignore it. Upload a photograph of the letter in the portal, or choose "Existing matter", and we will tell you what it means and what to do. Many letters have a 30-day deadline.`],
+      [`I have missed my tax return deadline.`, `Tell us straight away. HMRC charges a fixed penalty of 100 pounds immediately, with further penalties after three, six and twelve months. Filing late is always better than not filing, and we can often help with an appeal if you had a reasonable excuse.`],
+      [`Do you help new businesses?`, `Yes. We help you choose between sole trader and limited company, register with HMRC and Companies House, set up bookkeeping, and plan your tax. The first 30-minute consultation is free.`],
+      [`How do I change my accountant to Harlow & Finch?`, `Sign our engagement letter and we send a professional clearance request to your previous accountant, who should reply within 14 days. We also ask HMRC for authorisation to act for you.`],
+      [`Is my data secure?`, `Yes. We use encrypted portals and two-factor authentication, and we are registered with the Information Commissioner's Office. Your records are kept for six years, as required for tax.`],
+    ],
+    docs: [
+      [`Engagement letter and responsibilities`, `We act for you only for the services described in your engagement letter. We prepare accounts and returns from the records and information you give us. You are responsible for the accuracy and completeness of that information and for keeping your records for at least six years.\n\nDeadlines depend on you sending us what we need in time. We set a cut-off date for each deadline and tell you in advance. If you miss the cut-off, we cannot guarantee that we will meet the deadline, and we are not responsible for any penalties.\n\nWe will tell you when we find an error or an unpaid tax from the past, and we may be required by law to tell HMRC or the National Crime Agency about certain matters.`],
+      [`Fees and payments`, `We charge fixed monthly fees by direct debit for ongoing services, and a fixed price for one-off work such as tax returns. Prices are reviewed once a year, with 30 days' notice.\n\nWork outside the agreed scope, such as dealing with an HMRC enquiry, is charged at an hourly rate that we agree with you first. We never start extra work without telling you the cost.\n\nInvoices are payable within 14 days. If you are unhappy about a fee, tell us within 30 days of the invoice and we will review it fairly. We can pause our services if invoices are more than 30 days overdue.`],
+      [`HMRC deadlines calendar`, `Self-assessment: register by 5 October if you are new. Paper return by 31 October. Online return and payment by 31 January. Second payment on account by 31 July.\n\nVAT: returns and payments are due one month and seven days after the period ends. Making Tax Digital rules require compatible software.\n\nPAYE and payroll: Real Time Information must be filed on or before each payday. Payments are due by the 22nd of the following month. Year-end filings are due by 19 April, and P60s must be given to employees by 31 May.\n\nCompanies: accounts are due nine months after the year end, and the confirmation statement every 12 months.`],
+    ],
+    tickets: [
+      t([`Callum Reid`, `callum.reid@mail.example`], `Existing matter`, `Letter from HMRC about unpaid tax`, `I received a letter saying I owe 2,400 pounds from last year and must pay in 30 days. I do not understand it. Please help.`, 28, `new`, '', { pri: `high` }),
+      t([`Samantha Price`, `samantha.price@mail.example`], `New enquiry`, `Starting freelancing, what do I need to do?`, `I am leaving my job to freelance as a photographer. What do I need to do for tax?`, 7, `bot`, `Hello Samantha, congratulations on the move. In the UK, freelancers normally register as a sole trader with HMRC for self-assessment, keep records of income and expenses, and file a tax return every year by 31 January. Our free 30-minute consultation can go through your specific situation. Shall I ask a team member to arrange one?`),
+      t([`Oluwaseun Ajayi`, `oluwaseun.ajayi@mail.example`], `Documents & signing`, `Upload for my accounts`, `I have uploaded my bank statements and receipts. What else do you need to finish my accounts?`, 130, `agent`, `Hello Oluwaseun, thanks, the statements are all in. For the accounts, I still need your sales invoices from March to May and the mileage log for the van. Once I have those, I will finish the accounts within five working days.`, { after: 17 }),
+      t([`Janet Cooper`, `janet.cooper@mail.example`], `Billing & invoices`, `Invoice amount is higher than the quote`, `My invoice is 450 pounds but the quote was 350 pounds.`, 400, `resolved`, `Hello Janet, you are right: the invoice included 100 pounds for processing your landlord income, which was not in the quote. As this was agreed verbally and not in writing, I have removed it, and sent a corrected invoice for 350 pounds.`, { after: 50 }),
+    ],
+  },
+];

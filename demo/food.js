@@ -1,0 +1,107 @@
+'use strict';
+const { t } = require('./helpers');
+
+module.exports = [
+  {
+    name: `Spice Route Kitchen`,
+    domain: `spiceroutekitchen.example`,
+    owner: `Meera Choudhury`,
+    bot: `Maya`,
+    about: `Spice Route Kitchen is a group of five family-run Indian restaurants in London, from Brick Lane to Richmond, serving regional home cooking: Hyderabadi biryani, Keralan fish curry, Punjabi grills and a long vegan menu. We take bookings for groups of up to 40, cater weddings and office lunches, and deliver locally. Allergies are taken very seriously: please always tell us about them.`,
+    agents: [
+      [`Aman Gill`, [`Reservations & bookings`, `Catering & bulk orders`]],
+      [`Rachel Bennett`, [`Order issue`, `Refunds & payments`]],
+      [`Ismail Patel`, [`Allergens & ingredients`, `Feedback`]],
+    ],
+    faqs: [
+      [`How do I book a table?`, `Book on our website or through this help desk, giving the restaurant, date, time and number of guests. We hold your table for 15 minutes. For groups of eight or more we ask for a 10 pounds per person deposit, which is deducted from your bill.`],
+      [`Can I change or cancel my booking?`, `Yes, free of charge up to 24 hours before. Inside 24 hours, a cancellation for large groups loses the deposit. For smaller groups there is no charge, but please tell us so that we can offer your table to somebody else.`],
+      [`Do you cater for allergies?`, `Tell us about any allergy when booking or ordering. We keep an allergen matrix for every dish and our kitchens handle nuts, dairy, gluten and shellfish. We cannot guarantee a completely allergen-free kitchen, so in severe cases please speak to the manager before you visit.`],
+      [`Which dishes are vegan or gluten-free?`, `More than 40 dishes on our menu are vegan, and many are gluten-free. The menu on our website marks them with V and GF symbols, and staff can check any dish for you. Poppadoms and our naan breads contain gluten.`],
+      [`How does catering work?`, `We cater from 10 to 500 guests: buffet, boxed lunches or served meals. Menus start at 18 pounds per head. Order at least 72 hours ahead, or 14 days for weddings and events above 100 guests, and we confirm with a written quote.`],
+      [`How long does delivery take?`, `Delivery takes 35 to 50 minutes within three miles of the restaurant. You can track your driver in the app, and delivery is free over 25 pounds. At peak times, such as Friday evenings, it may take longer.`],
+      [`My order was wrong or arrived cold.`, `We are sorry. Tell us your order number and what went wrong, with a photo if it helps, within 24 hours. We refund the affected items or send a replacement meal, and we pass feedback to the kitchen.`],
+      [`Do you take walk-ins?`, `Yes, subject to space. Our restaurants are busiest on Friday and Saturday evenings, so we recommend booking. For groups of four or more we always recommend a booking.`],
+      [`Can I buy a gift card?`, `Gift cards from 10 to 250 pounds are available online and at each restaurant. They never expire and can be used at any Spice Route restaurant or for delivery orders.`],
+    ],
+    docs: [
+      [`Allergen policy`, `Food allergies are serious and our team is trained to deal with them. Please tell us about any allergy before you order. We cannot make safe recommendations if we do not know.\n\nOur kitchens handle the 14 major allergens, including nuts, dairy, gluten, mustard, celery, sesame, shellfish and fish. Although we take careful steps to avoid cross-contact, such as separate utensils and cleaning, we cannot guarantee that any dish is completely free from traces of allergens.\n\nThe allergen matrix is on our website and a copy is held at each restaurant. If you have a severe allergy, please speak to the manager on duty, who will check your dish directly with the chef.`],
+      [`Bookings, deposits and cancellations`, `Tables are held for 15 minutes after the booking time. Groups of eight or more must pay a deposit of 10 pounds per person, which is deducted from the final bill.\n\nBookings may be changed or cancelled free of charge up to 24 hours before the reservation. Large-group deposits are refundable if you cancel at least 48 hours before. Inside 48 hours, we keep the deposit unless we can fill the table.\n\nIf we need to cancel your booking, for example because of a power cut or emergency, we refund the deposit in full within five working days and offer you priority for another date.`],
+      [`Delivery and refunds`, `Delivery orders are prepared fresh and delivered by our own drivers or partners. We aim to deliver within 50 minutes. If your order is more than 30 minutes late, you are entitled to a 20 percent credit.\n\nIf an item is missing, wrong or not up to standard, tell us within 24 hours and we refund the affected items or replace them. Where a refund is paid by card, it appears within five to seven working days.\n\nWe cannot take responsibility for incorrect addresses, or if nobody is available to collect the food. Catering orders cancelled within 72 hours of the event are charged at 50 percent.`],
+    ],
+    tickets: [
+      t([`Charlotte Evans`, `charlotte.evans@mail.example`], `Reservations & bookings`, `Table for 12 on Saturday`, `Can we book a table for 12 at Brick Lane this Saturday at 7:30pm? Is there a deposit?`, 11, `bot`, `Hello Charlotte. For groups of eight or more, we take a deposit of 10 pounds per person, which is deducted from your bill. A team member will check availability for Saturday at 7:30pm and confirm your booking shortly.`, { custom: { party_size: 12 } }),
+      t([`Omar Haddad`, `omar.haddad@mail.example`], `Allergens & ingredients`, `Severe nut allergy, which dishes are safe?`, `My daughter has a severe peanut allergy. We are coming on Friday. Which dishes are safe, and can you guarantee no cross-contact?`, 27, `new`, '', { pri: `high` }),
+      t([`Beth Anderson`, `beth.anderson@mail.example`], `Order issue`, `Order arrived cold and missing the naan`, `Order SR-30421 arrived 50 minutes late, cold, and without the garlic naan.`, 80, `agent`, `Hi Beth, I am very sorry. I have refunded the naan and the full delivery fee, plus a 20 percent credit for the lateness, and shared your feedback with the kitchen manager. The money is back on your card within five to seven days.`, { after: 12, custom: { order_number: `SR-30421` } }),
+      t([`Raj Kapoor`, `raj.kapoor@mail.example`], `Catering & bulk orders`, `Lunch for 60 people`, `We need a vegetarian lunch for 60 people at our office on the 14th. What do you suggest and how much would it cost?`, 260, `resolved`, `Hello Raj, I have emailed you a written quote: a vegetarian buffet with three curries, rice, naan, salad and dessert at 19.50 pounds per head, delivered and set up. Reply to confirm and we will reserve the date.`, { after: 30 }),
+    ],
+  },
+  {
+    name: `QuickBite Delivery`,
+    domain: `quickbite-id.example`,
+    owner: `Dewi Anggraini`,
+    bot: `Sam`,
+    about: `QuickBite is a food and grocery delivery app from Jakarta that connects 15,000 restaurants, warungs and shops with customers in Jakarta, Bandung and Surabaya. Riders deliver in about 30 minutes, and we pay restaurants weekly. Our support team replies in Indonesian and English, every day from 6am to midnight.`,
+    agents: [
+      [`Rizky Pratama`, [`Order issue`, `Refunds & payments`]],
+      [`Putri Wulandari`, [`Allergens & ingredients`, `Feedback`]],
+      [`Budi Santoso`, [`Reservations & bookings`, `Catering & bulk orders`, `Refunds & payments`]],
+    ],
+    faqs: [
+      [`Bagaimana cara melacak pesanan saya?`, `Buka aplikasi dan pilih pesanan aktif di beranda. Anda bisa melihat posisi pengemudi secara langsung dan menelepon atau mengirim pesan kepadanya. Jika pesanan terlambat lebih dari 20 menit dari estimasi, Anda akan mendapat voucher otomatis.`],
+      [`How do I get a refund for missing items?`, `Open the order under History, choose Report a problem, select the missing items and add a photo if possible. Approved refunds go to your QuickBite wallet instantly or to your card within three to five working days.`],
+      [`Apa saja metode pembayaran yang tersedia?`, `Anda dapat membayar dengan QuickBite Pay, dompet digital, kartu kredit atau debit, transfer virtual account, dan tunai saat pesanan tiba di wilayah tertentu. Batas pembayaran tunai adalah 500.000 rupiah.`],
+      [`How do I cancel my order?`, `You can cancel for free before the restaurant accepts your order. After that, the restaurant has started cooking and the order cannot be cancelled. If you cancel after that, the full amount is charged.`],
+      [`Bagaimana jika pengemudi tidak menemukan alamat saya?`, `Pastikan pin lokasi dan catatan alamat sudah benar. Pengemudi akan menghubungi Anda dua kali. Jika Anda tidak dapat dihubungi dalam 10 menit, pesanan dapat dibatalkan dan tetap dikenakan biaya.`],
+      [`How are delivery fees calculated?`, `Delivery fees depend on distance and demand. The fee is shown before you pay. Orders over 100,000 rupiah qualify for free delivery within three kilometres.`],
+      [`Can I order for a big group or event?`, `Yes. Use QuickBite Catering for orders of 20 portions or more. Choose a date, a restaurant and a menu, and a coordinator confirms within two hours. Orders must be placed at least 24 hours ahead.`],
+      [`Apakah makanan halal?`, `Banyak restoran memiliki sertifikat halal dan ditandai dengan lencana Halal di aplikasi. Anda dapat memfilter restoran bersertifikat halal di pencarian. Informasi bahan makanan berasal dari restoran, jadi tanyakan kepada kami jika Anda ragu.`],
+      [`What if I have a food allergy?`, `Write your allergy in the notes for the restaurant, and check the ingredients list on the menu. We cannot guarantee how restaurants prepare dishes, so please contact the restaurant first for severe allergies.`],
+    ],
+    docs: [
+      [`Ketentuan pesanan dan pengembalian dana`, `Pengembalian dana diberikan jika pesanan tidak sampai, ada item yang hilang, makanan salah, atau kualitas makanan tidak sesuai. Laporkan dalam 24 jam setelah pesanan diterima melalui aplikasi.\n\nPengembalian dana yang disetujui masuk ke dompet QuickBite secara instan atau ke kartu Anda dalam tiga sampai lima hari kerja. Kami dapat meminta foto makanan untuk memverifikasi laporan.\n\nPembatalan setelah restoran menerima pesanan tidak dapat dikembalikan dananya. Jika pesanan dibatalkan karena kesalahan restoran atau pengemudi, Anda mendapat pengembalian dana penuh dan voucher permintaan maaf.`],
+      [`Rider and delivery policy`, `Riders are independent partners trained in food safety and road safety. They wear a QuickBite jacket and carry insulated bags. Please do not ask riders to take unsafe routes or to wait for more than ten minutes.\n\nIf a rider cannot reach you after two calls and ten minutes, the order may be cancelled and you will be charged. Please keep your phone with you and make sure the location pin and notes are correct.\n\nRiders are not allowed to ask for tips in cash, to change the delivery fee or to open your order. Report any rider behaviour that makes you uncomfortable via Help, then Report a rider. We investigate within 24 hours.`],
+      [`Panduan merchant dan keamanan pangan`, `Restoran mitra QuickBite wajib mematuhi standar kebersihan dan keamanan pangan yang berlaku di Indonesia. Kami melakukan pemeriksaan acak dan menanggapi setiap laporan dari pelanggan.\n\nJika Anda mengalami keracunan makanan atau reaksi alergi, segera cari bantuan medis. Setelah itu, laporkan kepada kami dengan nomor pesanan agar kami dapat menyelidiki dan menonaktifkan restoran bila perlu.\n\nBahan yang tercantum pada menu diberikan oleh restoran. Alergen dan status halal tidak selalu dapat kami verifikasi, jadi untuk alergi berat, hubungi restoran sebelum memesan.`],
+    ],
+    tickets: [
+      t([`Siti Nurhaliza`, `siti.nurhaliza@mail.example`], `Order issue`, `Pesanan belum sampai`, `Pesanan saya belum sampai sudah satu jam dan pengemudi tidak bisa dihubungi. Tolong cek, saya sudah bayar dengan QuickBite Pay.`, 35, `new`, '', { custom: { order_number: `QB-1182043` } }),
+      t([`Andre Wijaya`, `andre.wijaya@mail.example`], `Refunds & payments`, `Missing drink in my order`, `My order QB-1181820 arrived without the iced tea. How do I get a refund?`, 8, `bot`, `Hi Andre. Open the order under History, choose Report a problem and select the missing item. Approved refunds go to your QuickBite wallet instantly, or to your card within three to five working days. A team member will confirm it shortly.`),
+      t([`Maya Lestari`, `maya.lestari@mail.example`], `Allergens & ingredients`, `Alergi kacang di menu restoran`, `Saya alergi kacang. Apakah nasi goreng spesial dari Warung Pak Jaya mengandung kacang?`, 90, `agent`, `Halo Maya, terima kasih sudah bertanya. Warung Pak Jaya mengonfirmasi bahwa nasi goreng spesial tidak mengandung kacang, tetapi dapur mereka juga memasak sate dengan bumbu kacang. Karena alergi Anda serius, kami sarankan menelepon restoran terlebih dahulu.`, { after: 15 }),
+      t([`Joko Susilo`, `joko.susilo@mail.example`], `Catering & bulk orders`, `Catering for 40 people next Friday`, `We need lunch boxes for 40 people at our office in Surabaya next Friday at noon.`, 280, `resolved`, `Hello Joko, your catering order for 40 lunch boxes is confirmed for Friday at 11:45. Our coordinator will send the menu and total price to your email for payment.`, { after: 35 }),
+    ],
+  },
+  {
+    name: `Campo Verde Panadería`,
+    domain: `campoverde.example`,
+    owner: `Valentina Giménez`,
+    bot: `Zara`,
+    about: `Campo Verde es una panadería artesanal de Buenos Aires con tres locales y un servicio de catering para eventos. Horneamos medialunas, pan de masa madre, tortas y sándwiches de miga todos los días, y hacemos pedidos para cumpleaños, casamientos y empresas. Atendemos en español e inglés y respondemos en menos de dos horas.`,
+    agents: [
+      [`Matías Sosa`, [`Catering & bulk orders`, `Reservations & bookings`]],
+      [`Lucía Fernández`, [`Order issue`, `Refunds & payments`]],
+      [`Agustín Pereyra`, [`Allergens & ingredients`, `Feedback`]],
+    ],
+    faqs: [
+      [`¿Cuál es el horario de los locales?`, `Los tres locales abren de lunes a sábado de 7:00 a 20:00 y los domingos de 8:00 a 14:00. En feriados abrimos de 8:00 a 13:00. Las tortas por encargo se retiran hasta una hora antes del cierre.`],
+      [`¿Con cuánta anticipación debo encargar una torta?`, `Las tortas pequeñas se encargan con 48 horas de anticipación, y las de más de 30 porciones o con diseño personalizado, con 7 días. Pedimos una seña del 30 por ciento, que se descuenta del total.`],
+      [`¿Tienen opciones sin TACC o veganas?`, `Sí. Tenemos pan, alfajores y tortas sin TACC, y varias opciones veganas. Se elaboran en un sector separado, pero nuestra cocina maneja harina de trigo, por lo que no podemos garantizar la ausencia total de trazas. Pregunta por el listado de alérgenos.`],
+      [`¿Hacen envíos a domicilio?`, `Enviamos pedidos de lunes a sábado en Buenos Aires y alrededores con moto y camioneta. El envío cuesta desde 2.500 pesos según la zona, y es gratis en compras de más de 30.000 pesos. Las tortas se envían refrigeradas.`],
+      [`¿Cómo funciona el catering?`, `Armamos mesas dulces, sándwiches de miga, picadas y menús para eventos de 15 a 300 personas. Pide un presupuesto con la fecha, la cantidad de personas y el presupuesto estimado, y te respondemos en dos horas hábiles.`],
+      [`¿Puedo cambiar o cancelar un pedido?`, `Puedes cambiar o cancelar sin costo hasta 48 horas antes de la entrega. Después, la seña no se devuelve porque ya compramos los ingredientes. Si la cancelación es por una emergencia, avísanos y vemos una solución.`],
+      [`¿Qué formas de pago aceptan?`, `Aceptamos efectivo, transferencia bancaria, Mercado Pago, tarjetas de débito y crédito en cuotas, y pagos con QR. Los pagos con transferencia deben enviarse con el comprobante antes del retiro.`],
+      [`¿Cómo hago un reclamo?`, `Escríbenos con una foto y el número de pedido dentro de las 24 horas. Si hay un error nuestro, reemplazamos o devolvemos el producto. Valoramos todos los comentarios.`],
+      [`Do you ship outside Buenos Aires?`, `We deliver inside Greater Buenos Aires. For other cities in Argentina, we send non-perishable products such as alfajores and cookies by courier. Cakes are not shipped outside the city.`],
+    ],
+    docs: [
+      [`Política de pedidos y señas`, `Los pedidos de tortas y catering se confirman con una seña del 30 por ciento, que se paga por transferencia o Mercado Pago. El saldo se abona al retirar o recibir el pedido.\n\nLos cambios en el diseño, el sabor o la cantidad deben solicitarse al menos 48 horas antes. Pasado este plazo, intentaremos adaptarnos, pero podría haber costos adicionales.\n\nSi cancelas con más de 48 horas de anticipación, devolvemos la seña completa en un plazo de cinco días hábiles. Si cancelas con menos tiempo, la seña no se devuelve.`],
+      [`Alérgenos y ingredientes`, `Todos nuestros productos se elaboran en cocinas que usan harina de trigo, huevo, leche, frutos secos, maní y soja. Aunque limpiamos los espacios de trabajo y tenemos un sector separado para productos sin TACC, no es posible garantizar que no haya trazas.\n\nEl listado de ingredientes y alérgenos de cada producto está disponible en cada local y se envía por correo si lo pides. Si tienes una alergia grave, habla con el encargado antes de comprar. Para celíacos recomendamos consultar por el sector exclusivo.\n\nNo preparamos productos con garantías médicas ni ofrecemos asesoramiento nutricional.`],
+      [`Entregas y reclamos`, `Realizamos entregas en horarios acordados, con una ventana de una hora. Es importante que alguien reciba el pedido, sobre todo en el caso de tortas, que deben mantenerse refrigeradas y en posición horizontal.\n\nSi encuentras un problema en tu pedido, escríbenos dentro de las 24 horas con fotos. Revisamos cada caso y ofrecemos un reemplazo, un crédito o un reembolso. Los reembolsos por transferencia se realizan en tres días hábiles.\n\nNo nos responsabilizamos por daños producidos después de la entrega, por una mala conservación o por un traslado por terceros.`],
+    ],
+    tickets: [
+      t([`Florencia Molina`, `florencia.molina@mail.example`], `Catering & bulk orders`, `Presupuesto para una mesa dulce`, `Hola, necesito una mesa dulce para 50 personas el 15 de noviembre en Palermo. ¿Me pueden pasar un presupuesto?`, 14, `bot`, `Hola Florencia. Armamos mesas dulces para eventos de 15 a 300 personas. Un integrante del equipo te enviará el presupuesto por correo en un máximo de dos horas hábiles. Para ajustarlo, cuéntanos si prefieres opciones sin TACC o veganas.`),
+      t([`Gonzalo Acosta`, `gonzalo.acosta@mail.example`], `Order issue`, `La torta llegó dañada`, `Mi torta de cumpleaños llegó con la crema corrida y un lado hundido. Era para una fiesta de hoy. Pedido CV-4471.`, 30, `new`, '', { pri: `high`, custom: { order_number: `CV-4471` } }),
+      t([`Paula Rey`, `paula.rey@mail.example`], `Allergens & ingredients`, `Opciones para celíaca`, `Mi hija es celíaca. ¿Qué opciones sin TACC tienen para una merienda de 10 niños?`, 100, `agent`, `Hola Paula. Tenemos alfajores, bizcochuelos y pan sin TACC, elaborados en un sector separado. Como nuestra cocina maneja harina de trigo, no podemos garantizar la ausencia total de trazas, así que lo mejor es que hables con la encargada antes de comprar.`, { after: 16 }),
+      t([`Martin Keller`, `martin.keller@mail.example`], `Refunds & payments`, `Refund of deposit`, `I cancelled my cake order 5 days ago but have not received my deposit back.`, 440, `resolved`, `Hello Martin, your cancellation was made more than 48 hours before delivery, so the deposit of 9,000 pesos was refunded today by bank transfer. It should arrive within three working days.`, { after: 52 }),
+    ],
+  },
+];

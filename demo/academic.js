@@ -1,0 +1,108 @@
+'use strict';
+const { t } = require('./helpers');
+
+module.exports = [
+  {
+    name: `Kilimani Institute of Technology`,
+    domain: `kilimani-tech.example`,
+    owner: `Dr. Wanjiru Kamau`,
+    bot: `Nora`,
+    about: `Kilimani Institute of Technology in Nairobi teaches 6,500 students in engineering, computing, applied sciences and business. The student help desk serves applicants, current students and alumni. We aim to give every student a real answer on the same working day, and never later than two hours after the request is read by the team.`,
+    agents: [
+      [`Achieng Otieno`, [`Admissions`, `Course registration`, `Exams & grades`]],
+      [`Brian Mutua`, [`Fees & financial aid`, `Accommodation`]],
+      [`Salma Yusuf`, [`IT & campus portal`, `Library & resources`, `Other`]],
+    ],
+    faqs: [
+      [`When do applications for the January intake close?`, `Applications for the January intake close on 30 November. Late applications are considered only if places remain, and carry a late fee of 2,000 shillings. Submit your application through the admissions portal with your certificates, ID and passport photo.`],
+      [`How do I register for courses?`, `Registration is done in the student portal under Academics, then Register. It opens at 8:00 on the first Monday of each semester. You need to have paid at least 50 percent of your fees to complete registration.`],
+      [`What payment methods are accepted for fees?`, `You can pay by M-Pesa paybill, bank deposit or card in the portal. Use your student number as the account reference. Bank deposits take up to two working days to reflect, so keep your deposit slip.`],
+      [`How do I apply for a fee instalment plan?`, `Submit the instalment request form in the portal under Finance before the end of the second week of the semester. Plans are spread over three instalments and must be approved by the finance office. No fee-clearance letter is issued until the plan is up to date.`],
+      [`How do I apply for a hostel room?`, `Apply in the portal under Accommodation after you have registered. Rooms are shared by two students and cost 18,000 shillings per semester. First years and students from outside Nairobi get priority.`],
+      [`How do I request a transcript?`, `Request an official transcript in the portal under Records. It costs 1,000 shillings and is ready in five working days. Sealed copies for employers or other universities cost an additional 500 shillings.`],
+      [`I forgot my portal password.`, `Use "Forgot password" on the sign-in page. A reset link is sent to your student email and expires after 30 minutes. If you no longer have access to that mailbox, visit the IT desk with your student card.`],
+      [`How does the library work?`, `The library is open Monday to Friday from 7:30 to 21:00 and on Saturday from 9:00 to 17:00. You can borrow five books for 14 days and renew them online. Journals and e-books are available from anywhere on campus Wi-Fi or through the VPN.`],
+      [`What is the re-marking process?`, `You may request a re-mark within 14 days of results being released. Each paper costs 1,500 shillings, refunded if the mark changes. The outcome of a re-mark is final apart from procedural appeals.`],
+    ],
+    docs: [
+      [`Academic regulations`, `Students must attend at least 75 percent of scheduled classes in each course to be eligible to sit the final examination. Attendance is recorded by the lecturer in each session.\n\nA student must obtain at least 40 percent overall in a course to pass. A student who fails more than three courses in a semester is placed on academic probation and meets the department head to agree on a plan.\n\nCoursework counts for 30 percent of the final mark. Late coursework loses ten percent a day, up to five days. Coursework more than five days late is not marked unless an extension was approved in advance.\n\nAcademic dishonesty, including plagiarism and impersonation in an exam, is treated as a serious offence. First offences may lead to a zero mark for the work, and serious or repeat offences to suspension or expulsion.`],
+      [`Fees and refund policy`, `Tuition and other fees are due at the start of each semester. A student with unpaid fees cannot register for courses, sit examinations or collect results.\n\nA student who withdraws before the end of the second week receives an 80 percent refund of tuition. Between weeks three and four the refund is 50 percent. After week four there is no refund. Accommodation fees are refunded in full only if the room has not been occupied.\n\nScholarship holders must maintain a grade average of 65 percent. Falling below this average for two consecutive semesters ends the scholarship.\n\nRefunds are paid to the account the fees were paid from, within 30 days of approval.`],
+      [`Campus IT and Wi-Fi policy`, `Every student receives a student email account and portal access. Keep your password private. IT staff will never ask for it.\n\nCampus Wi-Fi is available in all teaching buildings and hostels. Sign in with your student number. Streaming video in lecture halls during class hours is restricted to protect bandwidth for learning.\n\nIf you lose access to your account or suspect someone else is using it, contact the help desk immediately and choose "IT & campus portal". Do not share your account with other students. Accounts used to break the law or to harass others are suspended while the case is reviewed.`],
+    ],
+    tickets: [
+      t([`Kevin Mwangi`, `kevin.mwangi@mail.example`], `Course registration`, `Cannot register, system says fees outstanding`, `I paid 60 percent of my fees by M-Pesa yesterday but the portal still blocks registration. Registration closes on Friday.`, 55, `new`, '', { custom: { student_id: `KIT/2023/0841` } }),
+      t([`Grace Njeri`, `grace.njeri@mail.example`], `Admissions`, `Deadline for January intake`, `What is the last day to apply for the January intake and which documents do I need?`, 12, `bot`, `Hello Grace. Applications for the January intake close on 30 November. Please submit your certificates, ID and a passport photo through the admissions portal. Late applications may be considered if places remain, with a late fee of 2,000 shillings.`),
+      t([`Samuel Kiprop`, `samuel.kiprop@mail.example`], `Fees & financial aid`, `Instalment plan request`, `I would like to pay my fees in three instalments because my sponsor has delayed. How do I apply?`, 95, `agent`, `Hi Samuel. Please submit the instalment request form in the portal under Finance and attach your sponsor's letter. I have flagged your request so that it is reviewed this week, and registration will stay open for you meanwhile.`, { after: 20 }),
+      t([`Dorcas Wafula`, `dorcas.wafula@mail.example`], `Exams & grades`, `Missing result for CS204`, `My result for CS204 is missing from the portal although I sat the exam. It shows pending.`, 210, `resolved`, `Hi Dorcas, the department had not uploaded the CS204 scripts for your group. The result is now published: please check the portal and tell us if anything still looks wrong.`, { after: 25, custom: { student_id: `KIT/2022/0127`, course_code: `CS204` } }),
+    ],
+  },
+  {
+    name: `Aurora Online Academy`,
+    domain: `auroraacademy.example`,
+    dropCategories: [`Accommodation`],
+    owner: `Thandiwe Nkosi`,
+    bot: `Zara`,
+    about: `Aurora Online Academy is a Cape Town-based online school and training provider with 40,000 learners in 90 countries. We run self-paced courses in data, design, languages and professional skills, plus cohort-based bootcamps with live mentors. Learners study on any device and get a verified certificate when they finish. Our promise is that you will never be stuck on a lesson for more than a day.`,
+    agents: [
+      [`Lerato Molefe`, [`Admissions`, `Course registration`, `Exams & grades`]],
+      [`Ethan Walker`, [`Fees & financial aid`, `Other`]],
+      [`Mei Tanaka`, [`IT & campus portal`, `Library & resources`]],
+    ],
+    faqs: [
+      [`How do self-paced courses work?`, `Once you enrol you have 12 months of access. Lessons are videos, readings and short quizzes, and you can learn at your own speed. Your progress is saved automatically, and you can continue on any device.`],
+      [`How long do bootcamps last?`, `Bootcamps run for 12 weeks with two live sessions a week, a weekly mentor call and a final project. Sessions are recorded for anyone who misses one. New cohorts start on the first Monday of every second month.`],
+      [`What is the refund policy?`, `You can request a full refund within 14 days of purchase if you have completed less than 20 percent of the course. After that, refunds are not available, but you may transfer to another course for a fee-free swap once.`],
+      [`How do certificates work?`, `You earn a certificate when you complete every lesson and pass the final assessment with at least 70 percent. Certificates carry a verification link and QR code that employers can check, and can be added to your LinkedIn profile.`],
+      [`Can I get a discount?`, `Learners in lower-income countries receive up to 60 percent off through our access programme. Students and unemployed learners can apply for a bursary twice a year. Applications are reviewed within ten working days.`],
+      [`Which payment methods do you accept?`, `We accept cards, PayPal, mobile money in eleven countries and bank transfer for corporate groups. Prices are shown in your local currency where possible.`],
+      [`The video will not play.`, `First refresh the page and try another browser. If the problem continues, lower the video quality in the player settings, or turn off a VPN. Tell us your device, browser and the lesson link if you still cannot watch.`],
+      [`How do I switch to a different course?`, `Contact us within 30 days of purchase. If you have completed less than 20 percent, we move you to a course of equal or lesser price at no charge. For a more expensive course you pay the difference.`],
+      [`How do I request an extension for a bootcamp deadline?`, `Write to us before the deadline, choose "Exams & grades" and explain what happened. Extensions of up to seven days are approved for illness, bereavement or technical problems we can verify.`],
+    ],
+    docs: [
+      [`Learner code of conduct`, `Aurora is a place for respectful learning. Treat other learners and mentors with courtesy in forums, live sessions and direct messages. Harassment, hate speech and spam are not allowed and lead to removal from the course.\n\nSubmit your own work. You may discuss ideas with others, but copied assignments and shared answers to assessments are plagiarism. A first offence results in a zero for the assessment and a warning. Repeat offences lead to the loss of the certificate and removal.\n\nDo not share your account. Each licence is for one learner. Accounts that are shared or resold may be suspended without a refund.`],
+      [`Refund and transfer policy`, `A full refund is available within 14 days of purchase for learners who have completed less than 20 percent of the course. Requests are processed within seven working days and refunded to the original payment method.\n\nBootcamp places can be deferred once to a later cohort at no cost if requested at least seven days before the start date. After the start date, a deferral costs 15 percent of the fee.\n\nIf Aurora cancels a cohort, learners receive a full refund or a place in the next cohort. Refunds are not available for courses where the certificate has been issued.`],
+      [`Accessibility and support`, `All video lessons have captions, and most have transcripts. Course content works with screen readers. If you need an adjustment, such as extra time for an assessment, tell us before it starts and we will arrange it with your mentor.\n\nSupport is available every day from 6:00 to 22:00 South African time. Replies to requests normally arrive within two hours. Bootcamp mentors hold office hours every week. Learners with unreliable internet can download lessons for offline viewing in the mobile app.`],
+    ],
+    tickets: [
+      t([`Pedro Alvarez`, `pedro.alvarez@mail.example`], `Fees & financial aid`, `Do you have a discount for Colombia?`, `I live in Colombia and the price of the data analysis course is high for me. Is there a regional discount?`, 8, `bot`, `Hi Pedro. Yes, learners in lower-income countries can get up to 60 percent off through our access programme, and students and unemployed learners can also apply for a bursary twice a year. Applications are reviewed within ten working days. A team member can help you apply if you wish.`),
+      t([`Amina Bello`, `amina.bello@mail.example`], `Library & resources`, `Videos keep buffering in module 3`, `Every video in module 3 buffers every few seconds. My internet is fine for other sites.`, 62, `new`),
+      t([`Jonas Weber`, `jonas.weber@mail.example`], `Exams & grades`, `Final assessment failed by 1 point`, `I scored 69 percent on the final assessment. Can I retake it? I am applying for a job next week.`, 120, `agent`, `Hi Jonas, congratulations on getting so close. You can retake the final assessment after 48 hours, and your best score counts. I have opened a new attempt for you for Friday morning.`, { after: 16, followup: `Brilliant, thank you!` }),
+      t([`Sakura Ito`, `sakura.ito@mail.example`], `Course registration`, `Move me to the next bootcamp cohort`, `I broke my wrist and cannot start the UX bootcamp on Monday. Can I defer?`, 300, `resolved`, `I am sorry to hear that, Sakura. I have deferred you to the cohort that starts in two months, with no charge since you asked more than seven days before. You will get a new welcome email today.`, { after: 30 }),
+    ],
+  },
+  {
+    name: `Instituto Sol de Oriente`,
+    domain: `soldeoriente.example`,
+    owner: `Dra. Lucía Fernández Ortega`,
+    bot: `Leo`,
+    about: `El Instituto Sol de Oriente es una universidad pública-privada en Mérida, Yucatán, con 9,000 estudiantes en licenciaturas de salud, turismo, ingeniería y educación. Este centro de ayuda atiende a aspirantes, estudiantes y exalumnos. Nuestro objetivo es que ningún estudiante espere más de dos horas por una respuesta de una persona. Atendemos en español e inglés.`,
+    agents: [
+      [`Mariana Castillo`, [`Admissions`, `Course registration`, `Exams & grades`]],
+      [`Javier Pech`, [`Fees & financial aid`, `Accommodation`]],
+      [`Daniela Ruiz`, [`IT & campus portal`, `Library & resources`, `Other`]],
+    ],
+    faqs: [
+      [`¿Cuándo es el periodo de inscripción?`, `La inscripción de semestre abre el primer lunes de cada periodo a las 9:00 en el portal del estudiante. Primero se inscriben los estudiantes de últimos semestres y después el resto. Necesitas haber pagado la primera mensualidad para confirmar tu inscripción.`],
+      [`¿Cómo puedo pagar mi colegiatura?`, `Puedes pagar en el portal con tarjeta, por transferencia SPEI o en ventanilla bancaria con tu referencia. Las transferencias SPEI se reflejan el mismo día hábil. Guarda siempre tu comprobante.`],
+      [`How do I apply as an international student?`, `International applicants apply through the admissions portal with a passport copy, certified transcripts and proof of Spanish or English ability. We process applications within 15 working days. After acceptance we issue the letter you need for your student visa.`],
+      [`¿Cómo solicito una beca?`, `Las becas académicas y de apoyo económico se solicitan en el portal entre el 1 y el 20 de cada mes de apertura. Necesitas un promedio mínimo de 8.5 y presentar un comprobante de ingresos familiares. Los resultados se publican en 15 días hábiles.`],
+      [`¿Qué hago si olvidé mi contraseña?`, `En la página de acceso elige "Olvidé mi contraseña". Te enviaremos un enlace a tu correo institucional que vence en 30 minutos. Si no tienes acceso a ese correo, acude al centro de cómputo con tu credencial.`],
+      [`¿Cómo pido una constancia de estudios?`, `Solicita la constancia en el portal, en Trámites. Es gratuita la primera vez cada semestre y tarda dos días hábiles. Las constancias con calificaciones cuestan 120 pesos.`],
+      [`¿Dónde está la biblioteca y cuál es su horario?`, `La biblioteca central abre de lunes a viernes de 7:00 a 21:00 y los sábados de 9:00 a 15:00. Puedes pedir hasta cuatro libros por diez días y renovarlos en línea.`],
+      [`¿Cómo solicito una revisión de calificación?`, `Tienes cinco días hábiles después de publicadas las calificaciones para pedir una revisión en el portal. El profesor responde en máximo cinco días. Si continúas en desacuerdo, puedes acudir a la coordinación de tu carrera.`],
+      [`How do I get a student ID card?`, `Collect your card at the student services office with a photo ID and your enrolment receipt. It takes ten minutes. Lost cards are replaced for 150 pesos.`],
+    ],
+    docs: [
+      [`Reglamento de estudiantes`, `Los estudiantes deben asistir al menos al 80 por ciento de las clases para tener derecho a examen ordinario. Las faltas por enfermedad se justifican con un comprobante médico entregado en un máximo de tres días hábiles.\n\nLa calificación mínima aprobatoria es de 7.0. Los estudiantes que reprueben un curso pueden presentar un examen extraordinario en las dos semanas posteriores a la publicación de calificaciones. Cada estudiante puede presentar un máximo de dos extraordinarios por semestre.\n\nEl plagio y la copia en exámenes son faltas graves. La primera falta implica la anulación del trabajo o examen; las faltas repetidas pueden terminar en baja definitiva. Todas las sanciones pueden apelarse ante el Comité Académico en un plazo de diez días hábiles.`],
+      [`Política de pagos, becas y bajas`, `La colegiatura se paga en diez mensualidades, con vencimiento el día 10 de cada mes. Un pago realizado después del día 10 tiene un recargo del 5 por ciento. Con dos mensualidades vencidas se suspende el acceso a las plataformas y a los exámenes.\n\nSi un estudiante solicita su baja temporal antes del segundo mes del semestre, no tendrá que pagar mensualidades posteriores. Si lo hace después, deberá cubrir el mes en curso.\n\nLas becas se renuevan cada semestre con un promedio mínimo de 8.5. Un estudiante becado que repruebe una materia pierde la beca durante el siguiente semestre. Los reembolsos se realizan en un plazo de 20 días hábiles.`],
+      [`Student visas and international students`, `International students need a valid student visa to enrol. After you are accepted, the admissions office sends an acceptance letter that you take to the Mexican consulate in your country. Allow four to six weeks for the visa process.\n\nOn arrival, register with the international office within 30 days to complete your immigration card. The office also helps with health insurance, housing and the orientation programme. Students must carry their card and a copy of their passport at all times.\n\nIf your visa is delayed, tell us as early as you can. You can start online for the first two weeks without losing your place.`],
+    ],
+    tickets: [
+      t([`Andrea Gómez`, `andrea.gomez@mail.example`], `Fees & financial aid`, `Pago de colegiatura no reflejado`, `Hola, hice una transferencia SPEI ayer para pagar mi mensualidad, pero el portal sigue diciendo que debo. Mi inscripción vence mañana.`, 45, `new`, '', { custom: { student_id: `SO-24-1187` } }),
+      t([`Diego Herrera`, `diego.herrera@mail.example`], `Admissions`, `Fecha de inscripción`, `Hola, ¿cuándo abre la inscripción del próximo semestre?`, 7, `bot`, `Hola Diego. La inscripción del próximo semestre abre el primer lunes del periodo a las 9:00 en el portal del estudiante. Primero se inscriben los estudiantes de últimos semestres. Necesitas haber pagado la primera mensualidad para confirmar tu inscripción.`),
+      t([`Camila Torres`, `camila.torres@mail.example`], `Exams & grades`, `Revisión de calificación`, `Quiero pedir una revisión de mi calificación de Anatomía. Creo que hay un error en la suma de puntos del examen.`, 110, `agent`, `Hola Camila. Ya registré tu solicitud de revisión y la envié al profesor de Anatomía. Te responderá en un máximo de cinco días hábiles. Si hay un error de suma, se corrige el mismo día.`, { after: 17 }),
+      t([`Emma Johansson`, `emma.johansson@mail.example`], `Admissions`, `Student visa letter`, `I have been accepted to the tourism programme. When can I get the letter for my visa application?`, 190, `resolved`, `Hi Emma, congratulations! Your acceptance letter was emailed to you today and the original is on its way by courier. Please start the visa application with the consulate straight away, as it takes four to six weeks.`, { after: 28 }),
+    ],
+  },
+];

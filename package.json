@@ -1,0 +1,19 @@
+{
+  "name": "support-desk",
+  "version": "1.0.0",
+  "description": "Multi-business support ticketing system with SLA timers, topic-based auto-assignment, AI first-response bot (OpenRouter) and seamless human takeover. Zero dependencies.",
+  "main": "server.js",
+  "private": true,
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "start": "node --disable-warning=ExperimentalWarning server.js",
+    "dev": "node --disable-warning=ExperimentalWarning --watch server.js",
+    "seed": "node --disable-warning=ExperimentalWarning seed.js",
+    "seed:demo": "node --disable-warning=ExperimentalWarning seed-demo.js",
+    "unseed:demo": "node --disable-warning=ExperimentalWarning seed-demo.js --remove",
+    "test": "node --disable-warning=ExperimentalWarning test/smoke.js && node --disable-warning=ExperimentalWarning test/demo-data.js && node --disable-warning=ExperimentalWarning test/demo-load.js"
+  },
+  "license": "MIT"
+}
