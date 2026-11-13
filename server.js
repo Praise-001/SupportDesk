@@ -8,7 +8,7 @@ const { openDb, transaction } = require('./lib/db');
 const util = require('./lib/util');
 const { HttpError, signJwt, verifyJwt, verifyPassword, hashPassword, isEmail, str, safeJson } = util;
 const { NICHES, BOT_NAME_SUGGESTIONS, listNiches } = require('./lib/niches');
-const { extractPdfText, chunkText } = require('./lib/pdf');
+const { extractPdfText, extractPdfTextAsync, chunkText } = require('./lib/pdf');
 const makeCore = require('./lib/core');
 const makeBot = require('./lib/bot');
 
@@ -62,9 +62,17 @@ function createApp(overrides = {}) {
   function broadcastTicketEvent(ticketId, event, data) {
     const subs = ticketSubscribers.get(Number(ticketId));
     if (!subs || !subs.size) return;
-    const payload = `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
-    for (const res of [...subs]) {
-      try { res.write(payload); } catch { subs.delete(res); }
+    for (const sub of [...subs]) {
+      // Do not broadcast internal staff notes to customer stream
+      if (data && data.internal && sub.viewer && sub.viewer.role === 'customer') {
+        continue;
+      }
+      const payload = `event: ${event}\ndata: ${JSON.stringify(data)}\n\n`;
+      try {
+        sub.res.write(payload);
+      } catch {
+        subs.delete(sub);
+      }
     }
   }
   const ctx = { db, config, onEvent: broadcastTicketEvent };
@@ -76,9 +84,22 @@ function createApp(overrides = {}) {
 
   // ---------- helpers ----------
   const hits = new Map();
-  function rateLimit(req, key, max = config.rateLimit) {
-    const ip = req.socket.remoteAddress || 'x';
-    const k = `${key}:${ip}`;
+  let lastPrune = Date.now();
+  function pruneHits() {
+    const now = Date.now();
+    if (now - lastPrune < 60000 && hits.size < 5000) return;
+    lastPrune = now;
+    for (const [k, v] of hits) {
+      if (now - v.start > 60000) hits.delete(k);
+    }
+  }
+
+  function rateLimit(req, key, max = config.rateLimit, viewer = null) {
+    pruneHits();
+    const forwarded = req.headers['x-forwarded-for'];
+    const ip = (typeof forwarded === 'string' ? forwarded.split(',')[0].trim() : req.socket?.remoteAddress) || 'x';
+    const principal = viewer && viewer.id ? `u:${viewer.role}:${viewer.id}` : `ip:${ip}`;
+    const k = `${key}:${principal}`;
     const t = Date.now();
     const rec = hits.get(k);
     if (!rec || t - rec.start > 60000) {
@@ -106,6 +127,10 @@ function createApp(overrides = {}) {
     const h = req.headers.authorization || '';
     const m = h.match(/^Bearer (.+)$/);
     let token = m ? m[1] : null;
+    if (!token && req.headers.cookie) {
+      const match = req.headers.cookie.match(/(?:^|;\s*)auth_token=([^;]+)/);
+      if (match) token = match[1];
+    }
     if (!token && req.url) {
       try {
         const u = new URL(req.url, 'http://localhost');
@@ -129,6 +154,10 @@ function createApp(overrides = {}) {
   const customerUser = (c) => ({ id: c.id, role: 'customer', name: c.name, email: c.email, account: !!c.password_hash });
 
   function readBody(req, limit = 16 * 1024 * 1024) {
+    const cl = req.headers['content-length'];
+    if (cl && Number(cl) > limit) {
+      return Promise.reject(new HttpError(413, 'Request body too large'));
+    }
     return new Promise((resolve, reject) => {
       const chunks = [];
       let size = 0;
@@ -330,11 +359,6 @@ function createApp(overrides = {}) {
   // --- inbound email → ticket (webhook; works with SendGrid/Postmark-style payloads once mapped) ---
   route('POST', '/api/inbound/email', PUBLIC, ({ body, query, req }) => {
     rateLimit(req, 'inbound');
-    const given = String(req.headers['x-webhook-secret'] || query.secret || '');
-    const a = Buffer.from(given);
-    const b = Buffer.from(config.inboundSecret);
-    if (a.length !== b.length || !crypto.timingSafeEqual(a, b)) throw new HttpError(401, 'Invalid webhook secret');
-
     let biz = body.business ? core.getBusinessBySlug(body.business) : null;
     if (!biz && body.to) {
       const m = String(body.to).toLowerCase().match(/([a-z0-9._+-]+)@/);
@@ -344,6 +368,14 @@ function createApp(overrides = {}) {
       }
     }
     if (!biz) throw new HttpError(404, 'No business matches this address');
+
+    const given = String(req.headers['x-webhook-secret'] || query.secret || '');
+    const a = Buffer.from(given);
+    const expectedBizSecret = Buffer.from(biz.inbound_secret || '');
+    const globalSecret = Buffer.from(config.inboundSecret || '');
+    const matchesBiz = expectedBizSecret.length > 0 && a.length === expectedBizSecret.length && crypto.timingSafeEqual(a, expectedBizSecret);
+    const matchesGlobal = globalSecret.length > 0 && a.length === globalSecret.length && crypto.timingSafeEqual(a, globalSecret);
+    if (!matchesBiz && !matchesGlobal) throw new HttpError(401, 'Invalid webhook secret');
     const from = String(body.from || '').toLowerCase().match(/[^\s<>"]+@[^\s<>"]+/)?.[0];
     if (!from || !isEmail(from)) throw new HttpError(400, 'Missing or invalid "from" address');
     const fromName = String(body.from_name || from.split('@')[0]).trim().slice(0, 80) || from;
@@ -384,12 +416,13 @@ function createApp(overrides = {}) {
   // Owner-only test button: sends a pretend email through exactly the same path as the real webhook
   route('POST', '/api/simulate-email', OWNER, ({ viewer, body, req }) => {
     const target = routes.find((r) => r.method === 'POST' && r.re.test('/api/inbound/email'));
-    const fakeReq = { headers: { 'x-webhook-secret': config.inboundSecret }, socket: req.socket };
+    const b = core.getBusiness(viewer.bid);
+    const fakeReq = { headers: { 'x-webhook-secret': b.inbound_secret || config.inboundSecret }, socket: req.socket };
     const out = target.handler({
       req: fakeReq,
       query: {},
       body: {
-        business: core.getBusiness(viewer.bid).slug,
+        business: b.slug,
         from: body.from,
         from_name: body.from_name,
         subject: body.subject,
@@ -400,7 +433,8 @@ function createApp(overrides = {}) {
   });
 
   // --- tickets ---
-  route('POST', '/api/tickets', CUSTOMER, ({ viewer, body }) => {
+  route('POST', '/api/tickets', CUSTOMER, ({ viewer, body, req }) => {
+    rateLimit(req, 'ticket_create', config.rateLimit, viewer);
     const biz = core.getBusiness(viewer.bid);
     const customer = get('SELECT * FROM customers WHERE id = ?', viewer.id);
     const t = core.createTicket({
@@ -439,15 +473,17 @@ function createApp(overrides = {}) {
     const tid = Number(t.id);
     if (!ticketSubscribers.has(tid)) ticketSubscribers.set(tid, new Set());
     const subs = ticketSubscribers.get(tid);
-    subs.add(res);
+    const sub = { res, viewer };
+    subs.add(sub);
     req.on('close', () => {
-      subs.delete(res);
+      subs.delete(sub);
       if (!subs.size) ticketSubscribers.delete(tid);
     });
     return undefined;
   });
 
-  route('POST', '/api/tickets/:id/messages', ['owner', 'agent', 'customer'], ({ viewer, params, body }) => {
+  route('POST', '/api/tickets/:id/messages', ['owner', 'agent', 'customer'], ({ viewer, params, body, req }) => {
+    rateLimit(req, 'message_create', config.rateLimit * 2, viewer);
     const t = core.getTicketFor(viewer, params.id);
     const internal = viewer.role !== 'customer' && !!body.internal;
     const r = core.addMessage(viewer, t, body.body, { internal });
@@ -522,7 +558,7 @@ function createApp(overrides = {}) {
         ...publicBusiness(b, true),
         inbound: {
           endpoint: '/api/inbound/email',
-          secret: config.inboundSecret,
+          secret: b.inbound_secret || config.inboundSecret,
           address_hint: `${b.slug}@your-inbound-domain`,
         },
         ai_enabled: !!config.openrouterKey,
@@ -676,6 +712,7 @@ function createApp(overrides = {}) {
       'INSERT INTO faqs (business_id, question, answer, created_at) VALUES (?,?,?,?)',
       viewer.bid, str(body.question, { min: 3, max: 300, field: 'Question' }), str(body.answer, { min: 3, max: 4000, field: 'Answer' }), core.now()
     );
+    bot.invalidateKnowledge?.(viewer.bid);
     return { status: 201, data: { faqs: faqList(viewer.bid) } };
   });
   route('PATCH', '/api/faqs/:id', OWNER, ({ viewer, params, body }) => {
@@ -687,10 +724,12 @@ function createApp(overrides = {}) {
       body.answer !== undefined ? str(body.answer, { min: 3, max: 4000, field: 'Answer' }) : f.answer,
       f.id
     );
+    bot.invalidateKnowledge?.(viewer.bid);
     return { faqs: faqList(viewer.bid) };
   });
   route('DELETE', '/api/faqs/:id', OWNER, ({ viewer, params }) => {
     run('DELETE FROM faqs WHERE id = ? AND business_id = ?', Number(params.id), viewer.bid);
+    bot.invalidateKnowledge?.(viewer.bid);
     return { faqs: faqList(viewer.bid) };
   });
 
@@ -698,7 +737,7 @@ function createApp(overrides = {}) {
     all('SELECT id, title, filename, kind, char_count, created_at FROM documents WHERE business_id = ? ORDER BY id DESC', bid);
 
   route('GET', '/api/documents', STAFF, ({ viewer }) => ({ documents: docList(viewer.bid) }));
-  route('POST', '/api/documents', OWNER, ({ viewer, body }) => {
+  route('POST', '/api/documents', OWNER, async ({ viewer, body }) => {
     const filename = String(body.filename || '').slice(0, 200);
     const title = str(body.title || filename.replace(/\.[a-z0-9]+$/i, ''), { min: 1, max: 120, field: 'Title' });
     let text = '';
@@ -710,7 +749,7 @@ function createApp(overrides = {}) {
       if (/\.pdf$/i.test(filename) || buf.slice(0, 5).toString('latin1') === '%PDF-') {
         kind = 'pdf';
         try {
-          text = extractPdfText(buf);
+          text = await extractPdfTextAsync(buf);
         } catch (e) {
           throw new HttpError(422, e.message);
         }
@@ -730,10 +769,12 @@ function createApp(overrides = {}) {
       chunks.forEach((c, i) => run('INSERT INTO doc_chunks (document_id, business_id, idx, text) VALUES (?,?,?,?)', docId, viewer.bid, i, c));
       return docId;
     });
+    bot.invalidateKnowledge?.(viewer.bid);
     return { status: 201, data: { id, chunks: chunks.length, documents: docList(viewer.bid) } };
   });
   route('DELETE', '/api/documents/:id', OWNER, ({ viewer, params }) => {
     run('DELETE FROM documents WHERE id = ? AND business_id = ?', Number(params.id), viewer.bid);
+    bot.invalidateKnowledge?.(viewer.bid);
     return { documents: docList(viewer.bid) };
   });
 
@@ -804,8 +845,14 @@ function createApp(overrides = {}) {
   }
 
   async function handle(req, res) {
-    const url = new URL(req.url, 'http://localhost');
-    const pathname = decodeURIComponent(url.pathname);
+    let url;
+    let pathname;
+    try {
+      url = new URL(req.url, 'http://localhost');
+      pathname = decodeURIComponent(url.pathname);
+    } catch {
+      return sendJson(res, 400, { error: 'Bad Request: Malformed URI' });
+    }
     if (!pathname.startsWith('/api/')) {
       if (req.method !== 'GET' && req.method !== 'HEAD') return sendJson(res, 405, { error: 'Method not allowed' });
       return serveStatic(req, res, pathname);
@@ -818,7 +865,11 @@ function createApp(overrides = {}) {
         if (!m) continue;
         pathMatched = true;
         if (r.method !== req.method) continue;
-        matched = { r, params: Object.fromEntries(r.keys.map((k, i) => [k, decodeURIComponent(m[i + 1])])) };
+        try {
+          matched = { r, params: Object.fromEntries(r.keys.map((k, i) => [k, decodeURIComponent(m[i + 1])])) };
+        } catch {
+          throw new HttpError(400, 'Bad Request: Malformed route parameter');
+        }
         break;
       }
       if (!matched) throw new HttpError(pathMatched ? 405 : 404, pathMatched ? 'Method not allowed' : 'Not found');
@@ -844,7 +895,15 @@ function createApp(overrides = {}) {
   }
 
   const server = http.createServer((req, res) => {
-    handle(req, res);
+    handle(req, res).catch((err) => {
+      console.error('[server:unhandled]', err);
+      if (!res.headersSent && !res.writableEnded) {
+        try {
+          res.writeHead(500, { 'Content-Type': 'application/json' });
+          res.end(JSON.stringify({ error: 'Internal server error' }));
+        } catch {}
+      }
+    });
   });
 
   let timer = null;
@@ -867,8 +926,11 @@ function createApp(overrides = {}) {
   async function close() {
     if (timer) clearInterval(timer);
     for (const subs of ticketSubscribers.values()) {
-      for (const res of subs) {
-        try { res.end(); } catch {}
+      for (const sub of subs) {
+        try {
+          if (sub && sub.res) sub.res.end();
+          else if (sub && sub.end) sub.end();
+        } catch {}
       }
     }
     ticketSubscribers.clear();
@@ -883,10 +945,16 @@ function createApp(overrides = {}) {
 module.exports = { createApp, buildConfig, loadDotEnv };
 
 if (require.main === module) {
+  process.on('unhandledRejection', (reason, promise) => {
+    console.error('[process:unhandledRejection]', reason);
+  });
+  process.on('uncaughtException', (err) => {
+    console.error('[process:uncaughtException]', err);
+  });
   loadDotEnv(path.join(__dirname, '.env'));
   const app = createApp();
-  // Made-up demo companies so the public list is never empty. Added once, on the first start.
-  if (process.env.DEMO_COMPANIES !== 'off') {
+  // Made-up demo companies so the public list is never empty. Only added on explicit configuration.
+  if (process.env.DEMO_COMPANIES === 'on' || process.env.DEMO_COMPANIES === 'true') {
     try {
       const n = require('./lib/demo')(app).ensure();
       if (n) console.log(`\n  Added ${n} demo companies (tagged "Demo"). Remove them any time with: npm run unseed:demo`);

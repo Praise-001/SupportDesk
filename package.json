@@ -13,7 +13,7 @@
     "seed": "node --disable-warning=ExperimentalWarning seed.js",
     "seed:demo": "node --disable-warning=ExperimentalWarning seed-demo.js",
     "unseed:demo": "node --disable-warning=ExperimentalWarning seed-demo.js --remove",
-    "test": "node --disable-warning=ExperimentalWarning test/smoke.js && node --disable-warning=ExperimentalWarning test/demo-data.js && node --disable-warning=ExperimentalWarning test/demo-load.js"
+    "test": "node --disable-warning=ExperimentalWarning test/smoke.js && node --disable-warning=ExperimentalWarning test/security-and-fault-fixes.js && node --disable-warning=ExperimentalWarning test/demo-data.js && node --disable-warning=ExperimentalWarning test/demo-load.js"
   },
   "license": "MIT"
 }

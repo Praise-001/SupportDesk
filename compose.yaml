@@ -10,7 +10,7 @@ services:
       - PORT=3000
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
       - OPENROUTER_MODEL=${OPENROUTER_MODEL:-openrouter/auto}
-      - DEMO_COMPANIES=${DEMO_COMPANIES:-on}
+      - DEMO_COMPANIES=${DEMO_COMPANIES:-off}
     restart: unless-stopped
 
 volumes:
